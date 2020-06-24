@@ -8,6 +8,8 @@ import router from './router'
 import store from './store'
 import Vuelidate from 'vuelidate'
 import VueDaval from 'vue-daval'
+import Paginate from 'vuejs-paginate'
+Vue.component('paginate', Paginate)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(Vuelidate)
 Vue.use(VueDaval)

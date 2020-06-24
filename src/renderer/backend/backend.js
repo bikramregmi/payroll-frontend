@@ -2,7 +2,6 @@ import $ from 'jQuery'
 var SH = {}
 export default SH
 SH.ajax = {
-
   callRemote (api, payload, type, callback) {
     let data = ''
     if (payload) {

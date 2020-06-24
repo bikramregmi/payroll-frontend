@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h5 class="card-title">Employee Salary</h5><hr>
+        <h5 class="card-title">Employee Salary</h5>
+        <hr>
         <div class='divider-clear'/>
         <input type="text" class="form-control" id="id" v-model="employeeSalary.id" aria-describedby="id"
                hidden>
@@ -10,7 +11,8 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">Basic Salary</span>
-                            <span v-show="errorMessage==true && !employeeSalary.basicSalary" class="input-group-text" id="inputGroupPrependSpan">{{$vd.employeeSalaryVd.basicSalary.$errors[0]}}</span>
+                            <span v-show="errorMessage==true && !employeeSalary.basicSalary" class="input-group-text"
+                                  id="inputGroupPrependSpan">{{$vd.employeeSalary.basicSalary.$errors[0]}}</span>
                         </div>
                         <input type="text" class="form-control" id="basicSalary" v-model="employeeSalary.basicSalary"
                                aria-describedby="basicSalary">
@@ -20,7 +22,8 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend1">Allowance</span>
-                            <span v-show="errorMessage==true && !employeeSalary.allowance" class="input-group-text" id="inputGroupPrependSpan">{{$vd.employeeSalaryVd.allowance.$errors[0]}}</span>
+                            <span v-show="errorMessage==true && !employeeSalary.allowance" class="input-group-text"
+                                  id="inputGroupPrependSpan">{{$vd.employeeSalary.allowance.$errors[0]}}</span>
                         </div>
                         <input type="text" class="form-control" id="allowance" v-model="employeeSalary.allowance">
                     </div>
@@ -118,16 +121,16 @@
       data () {
         return {
           id: this.$route.params.id,
-          employeeSalary: [],
+          // employeeSalary: [],
           errorMessage: false,
-          employeeSalaryVd: {
+          employeeSalary: {
             basicSalary: '',
             allowance: ''
           }
         }
       },
       vdRules: {
-        employeeSalaryVd: {
+        employeeSalary: {
           basicSalary: {required: true},
           allowance: {required: true}
         }
@@ -153,12 +156,19 @@
             id: this.employeeSalary.id
 
           }
-          this.$vd.employeeSalaryVd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries`, updatedData, 'POST', function (data) {
-              this.employee = data
-              this.$router.push('/listEmployeeDetails')
-            }.bind(this))
-          }).catch(() => {
+          this.$vd.employeeSalary.$validate().then(() => {
+            if (updatedData.id == null) {
+              SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries`, updatedData, 'POST', function (data) {
+                this.$router.push('/listEmployeeDetails')
+              }.bind(this))
+            } else {
+              SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries`, updatedData, 'PUT', function (data) {
+                this.employee = data
+                this.$router.push('/listEmployeeDetails')
+              }.bind(this))
+            }
+          }
+          ).catch(() => {
             this.errorMessage = true
           })
           this.$forceUpdate()
