@@ -1,34 +1,40 @@
 <template>
     <div>
-        <main>
-            <h5 class="card-title">Welcome To Payroll</h5><hr>
-            <div class="right-side">
-                <div class="doc">
-                    <div class="title">Payroll</div>
-                    <p>
-                       Get All Employee Details.
-                    </p>
-                    <button @click="addNewContact()">Add New Employee</button><br><br>
-                </div>
-                <div class="doc">
-                    <div class="title alt">Other Documentation</div>
-                    <button class="alt" @click="open('https://electron.atom.io/docs/')">Help</button>
-                    <button class="alt" @click="open('https://vuejs.org/v2/guide/')">About Us</button>
-                </div>
-            </div>
-        </main>
+        <h5 class="card-title">Welcome To Payroll</h5>
+        <hr>&nbsp;&nbsp;&nbsp;
+        <a href="#" class="btn btn-success">Active Employee</a>
+        <a href="#" class="btn btn-primary">{{employeeCount}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <img style="width:45%;" src="../../assets/images/dashboardnew.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" class="btn btn-success">Total Employee</a>
+                <a href="#" class="btn btn-primary">{{employeeCount}}</a><br>
     </div>
 </template>
 
 <script>
-  export default {
-    name: 'Home',
-    methods: {
-      addNewContact: function () {
-        this.$router.push('/addNewContact')
+    import SH from '../../backend/backend'
+
+    export default {
+      name: 'Home',
+      data () {
+        return {
+          employeeCount: ''
+        }
+      },
+      created () {
+        this.getTotalEmployee()
+      },
+      methods: {
+        addNewContact: function () {
+          this.$router.push('/addNewContact')
+        },
+        getTotalEmployee: function () {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/count`, '', 'GET', function (data) {
+            this.employeeCount = data
+          }.bind(this))
+          this.$forceUpdate()
+        }
       }
     }
-  }
 </script>
 
 <style>

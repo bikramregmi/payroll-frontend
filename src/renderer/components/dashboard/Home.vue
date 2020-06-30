@@ -31,7 +31,7 @@
                                 </RouterLink>
                             </li>
                             <li class="list-group-item">
-                                <RouterLink to="/dashboard" class="nav-group-item"><span
+                                <RouterLink to="/generatePayroll" class="nav-group-item"><span
                                         class="icon icon-folder"></span>
                                     <img class=''>Generate Payroll
                                 </RouterLink>

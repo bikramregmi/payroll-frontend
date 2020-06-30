@@ -8,6 +8,7 @@ import ListEmployeeDetails from '../components/employee/ListEmployeeDetails'
 import UpdateEmployeeInformation from '../components/employee/UpdateEmployeeInformation'
 import EmployeeSalary from '../components/employee/EmployeeSalary'
 import Register from '../components/register/Register'
+import GeneratePayroll from '../components/generatePayroll/GeneratePayroll'
 
 Vue.use(Router)
 
@@ -46,6 +47,10 @@ export default new Router({
         path: '/employeeSalary/:id',
         name: 'employeeSalary',
         component: EmployeeSalary
+      }, {
+        path: '/generatePayroll',
+        name: 'generatePayroll',
+        component: GeneratePayroll
       }]
     },
     {
