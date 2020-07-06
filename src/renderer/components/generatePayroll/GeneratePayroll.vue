@@ -66,7 +66,7 @@
           resp: '',
           salaryMonth: '',
           salaryTotal: '',
-          page: '',
+          page: 0,
           keyboard: ''
         }
       },

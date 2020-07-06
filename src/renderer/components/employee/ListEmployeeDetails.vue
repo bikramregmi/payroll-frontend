@@ -43,11 +43,11 @@
                 :container-class="'pagination'"
                 :page-class="'page-item'"
                 :pageLinkClass="'page-link-item'"
-                >
+                :page-count="1"
+        >
         </paginate>
     </div>
 </template>
-
 
 
 <script>
@@ -61,17 +61,13 @@
           itemsPerPage: 5,
           queryCount: null,
           previousPage: 1,
-          propOrder: 'id',
-          totalItems: 0,
-          page: ''
+          page: 0
         }
       },
       created () {
         this.getAllEmployees()
-  },
+      },
       methods: {
-        clickCallback: function (pageNum) {
-        },
         getAllEmployees: function (pageNum) {
           const paginationQuery = {
             page: pageNum - 1,
@@ -93,7 +89,6 @@
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/id=${id}`, '', 'DELETE', function (data) {
             alert(data.message)
           })
-          // window.location.reload()
         }
       }
     }
@@ -106,9 +101,11 @@
         margin: 20px 0;
         border-radius: 4px;
     }
+
     .pagination > li {
         display: inline;
     }
+
     .pagination > li > a,
     .pagination > li > span {
         position: relative;

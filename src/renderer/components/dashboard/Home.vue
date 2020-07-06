@@ -31,6 +31,11 @@
                                 </RouterLink>
                             </li>
                             <li class="list-group-item">
+                                <RouterLink to="/attendance" class="nav-group-item"><span class="icon icon-tools"></span>
+                                    <img class=''>Attendance
+                                </RouterLink>
+                            </li>
+                            <li class="list-group-item">
                                 <RouterLink to="/generatePayroll" class="nav-group-item"><span
                                         class="icon icon-folder"></span>
                                     <img class=''>Generate Payroll
