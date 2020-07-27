@@ -47,12 +47,12 @@
                                 </RouterLink>
                             </li>
                         </ul>
-                        <br>
                         <hr>
-                        <br>
                         <div class="doc">
-                            <button @click="logout()" class="btn-danger">Log Out</button>
+                            <button @click="getProfile()" class="btn-info">My Profile</button>
                             <br>
+                            <br>
+                            <button @click="logout()" class="btn-danger">Log Out</button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,11 @@
           this.$router.push('/addNewContact')
         },
         logout: function () {
+          localStorage.removeItem('token')
           this.$router.push('/logout')
+        },
+        getProfile: function () {
+          this.$router.push(`/profile`)
         }
       }
     }

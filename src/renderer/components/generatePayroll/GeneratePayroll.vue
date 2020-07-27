@@ -9,18 +9,19 @@
                 </div>
                 <button v-show="response" class="btn btn-warning" @click="generatePayroll()">Generate Payroll</button>
             </div>
-          <!--  <div class="col-md-9">
-                <span class="alert alert-danger">Payroll is generated every end of the month</span>
-            </div>-->
+            <!--  <div class="col-md-9">
+                  <span class="alert alert-danger">Payroll is generated every end of the month</span>
+              </div>-->
         </div>
         <hr>
         <div class="row">
             <div class="col-md-6">
                 <h5 class="card-title">Payroll History</h5>
             </div>
-            <div class="col-md-6" >
-                <input style="width:300px;" class="form-control" type="text" v-model="keyboard" placeholder="Search" aria-label="Search">
-<!--                <button @click="getPayrollMonth()">Search</button>-->
+            <div class="col-md-6">
+                <input style="width:300px;" class="form-control" type="text" v-model="keyboard" placeholder="Search"
+                       aria-label="Search">
+                <!--                <button @click="getPayrollMonth()">Search</button>-->
             </div>
         </div>
         <div class="row">
@@ -43,13 +44,13 @@
                 </tbody>
             </table>
         </div>
-        <paginate
-                v-model="page"
-                :click-handler="getPayrollMonth"
-                :container-class="'pagination'"
-                :page-class="'page-item'"
-                :pageLinkClass="'page-link-item'"
-                :page-count="1"
+        <paginate v-show="response.length>5"
+                  v-model="page"
+                  :click-handler="getPayrollMonth"
+                  :container-class="'pagination'"
+                  :page-class="'page-item'"
+                  :pageLinkClass="'page-link-item'"
+                  :page-count="page+1"
         >
         </paginate>
     </div>
@@ -66,7 +67,7 @@
           resp: '',
           salaryMonth: '',
           salaryTotal: '',
-          page: 0,
+          page: 1,
           keyboard: ''
         }
       },
@@ -75,9 +76,53 @@
       },
       methods: {
         generatePayroll: function () {
-          const data = {
-            salaryMonth: 'Jestha'
+          let mon = ''
+          const d = new Date()
+          const month = new Intl.DateTimeFormat('en').format(d)
+          switch (month) {
+            case 1 :
+              mon = 'Mangsir'
+              break
+            case 2 :
+              mon = 'Poush'
+              break
+            case 3 :
+              mon = 'Margh'
+              break
+            case 4 :
+              mon = 'Falgun'
+              break
+            case 5 :
+              mon = 'Chaitra'
+              break
+            case 6 :
+              mon = 'Baisakh'
+              break
+            case 7 :
+              mon = 'Jestha'
+              break
+            case 8 :
+              mon = 'Ashad'
+              break
+            case 9 :
+              mon = 'Sharawn'
+              break
+            case 10 :
+              mon = 'Bhadra'
+              break
+            case 11 :
+              mon = 'Ashoj'
+              break
+            case 12 :
+              mon = 'Kartik'
           }
+    
+          alert(mon)
+
+          const data = {
+            salaryMonth: mon
+          }
+
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/payroll-generates`, data, 'POST', function (data) {
             this.resp = data
           }.bind(this))

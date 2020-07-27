@@ -1,6 +1,7 @@
 <template>
     <div>
         <h5 class="card-title">List Of All Employees</h5>
+        <hr>
         <!--         <button class="btn btn-primary m-1" v-on:click="addNewServiceContact('new')">Add New Contact</button>-->
         <div class="row">
             <div class="col-lg-12 ">
@@ -37,13 +38,13 @@
                 </table>
             </div>
         </div>
-        <paginate
+        <paginate v-show="employee.length>5"
                 v-model="page"
                 :click-handler="getAllEmployees"
                 :container-class="'pagination'"
                 :page-class="'page-item'"
                 :pageLinkClass="'page-link-item'"
-                :page-count="1"
+                :page-count="page+1"
         >
         </paginate>
     </div>
@@ -61,7 +62,7 @@
           itemsPerPage: 5,
           queryCount: null,
           previousPage: 1,
-          page: 0
+          page: 1
         }
       },
       created () {

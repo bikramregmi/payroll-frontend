@@ -83,7 +83,7 @@
             <hr>
             <div class="row" v-for="(item) in todayAttendance">
                 <div style="color:black;">&emsp;{{item.employeeFullName}}</div>&nbsp;
-                <span style="background-color: #4fc08d;cursor: pointer;" @click="checkout(item.id)">&nbsp;Checkout&nbsp;</span>
+                <span style="color: #4fc08d;cursor: pointer;" @click="checkout(item.id)">&nbsp;Checkout&nbsp;</span>
             </div>
         </div>
     </div>
