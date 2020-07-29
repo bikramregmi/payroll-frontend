@@ -21,24 +21,13 @@
                             <li class="list-group-item">
                                 <RouterLink to="/addEmployee" class="nav-group-item"><span
                                         class="icon icon-download"></span>
-                                    <img class=''>Add Employee
+                                    <img class=''>Add Company
                                 </RouterLink>
                             </li>
                             <li class="list-group-item">
                                 <RouterLink to="/listEmployeeDetails" class="nav-group-item"><span
                                         class="icon icon-folder"></span>
-                                    <img src=''>List Employee
-                                </RouterLink>
-                            </li>
-                            <li class="list-group-item">
-                                <RouterLink to="/attendance" class="nav-group-item"><span class="icon icon-tools"></span>
-                                    <img class=''>Attendance
-                                </RouterLink>
-                            </li>
-                            <li class="list-group-item">
-                                <RouterLink to="/generatePayroll" class="nav-group-item"><span
-                                        class="icon icon-folder"></span>
-                                    <img class=''>Generate Payroll
+                                    <img src=''>List Company
                                 </RouterLink>
                             </li>
                             <li class="list-group-item">
@@ -71,7 +60,7 @@
 
 <script>
     export default {
-      name: 'Home',
+      name: 'WelcomePage',
       methods: {
         addNewContact: function () {
           this.$router.push('/addNewContact')
@@ -90,3 +79,6 @@
     }
 </script>
 
+<style scoped>
+
+</style>

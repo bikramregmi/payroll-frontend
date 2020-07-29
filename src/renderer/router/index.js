@@ -11,6 +11,9 @@ import Register from '../components/register/Register'
 import GeneratePayroll from '../components/generatePayroll/GeneratePayroll'
 import Attendance from '../components/employee/Attendance'
 import Profile from '../components/company/Profile'
+import WelcomePage from '../components/accounting/WelcomePage'
+import MainDashboard from '../components/mainDashboard/MainDashboard'
+import ADashboard from '../components/accounting/Dashboard'
 
 Vue.use(Router)
 
@@ -20,6 +23,11 @@ export default new Router({
       path: '/',
       name: 'landing-page',
       component: LandingPage
+    },
+    {
+      path: '/maindashboard',
+      name: 'maindashboard',
+      component: MainDashboard
     },
     {
       path: '/register',
@@ -61,6 +69,16 @@ export default new Router({
         path: '/generatePayroll',
         name: 'generatePayroll',
         component: GeneratePayroll
+      }]
+    },
+    {
+      path: '/accounting',
+      name: 'accounting',
+      component: WelcomePage,
+      children: [{
+        path: '/ADashboard',
+        name: 'ADashboard',
+        component: ADashboard
       }]
     },
     {

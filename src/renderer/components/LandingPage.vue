@@ -66,7 +66,7 @@
                 if (data.id_token) {
                   this.userToken = data
                   localStorage.setItem('token', this.userToken.id_token)
-                  this.$router.push('/dashboard')
+                  this.$router.push('/maindashboard')
                 } else if (data.AuthenticationException) {
                   alert(data.AuthenticationException)
                 } else if (data.status === 401) {
