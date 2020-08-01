@@ -14,7 +14,7 @@
             <div class="form-group">
                    <span v-show="errorMessage==true && !password" class="input-group-text"
                          id="inputGroupPrependSpan">{{$vd.password.$errors[0]}}</span>
-                <input type="password" class="form-control" name="password" placeholder="Password" v-model="password"
+                <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" value="admin"
                        required="required">
             </div>
             <div class="form-group">
@@ -39,8 +39,8 @@
       components: {},
       data () {
         return {
-          username: '',
-          password: '',
+          username: 'admin',
+          password: 'admin',
           userToken: {
             'id_token': ''
           },

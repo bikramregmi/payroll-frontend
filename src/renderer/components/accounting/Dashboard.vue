@@ -2,12 +2,64 @@
     <div>
         <h5 class="card-title">Welcome To Accounting System</h5>
         <hr>&nbsp;&nbsp;&nbsp;
+        <div class="row" >
+            <div class="col-md-7">
+            <img style="height: 70%; margin-left: 80px;" src="../../../../src/renderer/assets/images/img.png" alt="logo">
+            </div>
+            <div class="card-body-custom">
+                <div class="col-md-4">
+                    <h6 style="width:200px;margin-top: 5px;" class="card-title"><b><u >Shortcut Keys</u></b></h6>
+                    <h6 style="color: black;width:170px;">Press Esc to Cancel</h6>
+                </div>
+            </div>
+        </div>
+        <button hidden v-shortkey="['esc']" @shortkey="cancel()" class="btn btn-primary"></button>
     </div>
 </template>
 
 <script>
+    import Ledger from '../accounting/accountInfo/AddLedger'
+    import Groups from '../accounting/accountInfo/AddGroups'
+    import VoucherType from '../accounting/accountInfo/AddVoucherType'
+
     export default {
-      name: 'Dashboard'
+      name: 'Dashboard',
+      data () {
+        return {
+          account: '',
+          result: ''
+        }
+      },
+      methods: {
+        check: function (value) {
+          if (value === 'acc') {
+            this.result = 'acc'
+          } else {
+            this.result = 'inv'
+          }
+        },
+        cancel: function () {
+          this.result = 'empty'
+        },
+        show: function (data) {
+          if (data === 'Ledger') {
+            this.$modal.show(Ledger,
+              {text: 'This text is passed as a property'},
+              {draggable: true})
+          } else if (data === 'Groups') {
+            this.$modal.show(Groups,
+              {text: 'This text is passed as a property'},
+              {draggable: true})
+          } else if (data === 'VoucherType') {
+            this.$modal.show(VoucherType,
+              {text: 'This text is passed as a property'},
+              {draggable: true})
+          }
+        },
+        hide: function () {
+          this.$modal.hide('my-first-modal')
+        }
+      }
     }
 </script>
 

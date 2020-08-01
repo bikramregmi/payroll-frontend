@@ -2,6 +2,11 @@
   background-color: #c3d9ff;
   height: 510px;
 }
+.card-body-custom {
+  background-color: #c3d9ff;
+  height: 350px;
+  margin-left: 100px;
+}
 .card-footer {
   margin-top:200px;
 }
@@ -205,5 +210,17 @@ main > div { flex-basis: 50%; }
   border: 1px solid #4fc08d;
   margin-top: 200px;
   margin-left:200px;
+}
+.vl {
+  border-left: 3px solid lightskyblue;
+  height: 400px;
+}
+ul li{
+  color: black;
+  list-style: none;
+  cursor: pointer;
+}
+h6 {
+  color: black;
 }
 //end of dashboard
