@@ -1,5 +1,8 @@
 <template>
     <div class="main">
+<!--        <div class="alert alert-success">-->
+<!--            <strong>Success!</strong> Digitize Your Work.-->
+<!--        </div>-->
         <div class="row">
             <div class="col-lg-5">
                 <button @click="check('pa')" type="button" class="btn btn-primary">Payroll System</button>

@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -32,7 +32,18 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', function () {
+  createWindow()
+  /* let template = [{
+    label: 'Company Details',
+    click: function () {
+      this.$router.push('/addCompany')
+    }
+  }]
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template)) */
+
+  Menu.setApplicationMenu(null)
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

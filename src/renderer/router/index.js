@@ -14,6 +14,8 @@ import Profile from '../components/company/Profile'
 import WelcomePage from '../components/accounting/WelcomePage'
 import MainDashboard from '../components/mainDashboard/MainDashboard'
 import ADashboard from '../components/accounting/Dashboard'
+import AddCompany from '../components/accounting/company/AddCompany'
+import ListCompany from '../components/accounting/company/ListCompany'
 
 Vue.use(Router)
 
@@ -79,6 +81,14 @@ export default new Router({
         path: '/ADashboard',
         name: 'ADashboard',
         component: ADashboard
+      }, {
+        path: '/addCompany',
+        name: 'addCompany',
+        component: AddCompany
+      }, {
+        path: '/listCompany',
+        name: 'listCompany',
+        component: ListCompany
       }]
     },
     {
