@@ -18,10 +18,6 @@
 </template>
 
 <script>
-    import Ledger from '../accounting/accountInfo/AddLedger'
-    import Groups from '../accounting/accountInfo/AddGroups'
-    import VoucherType from '../accounting/accountInfo/AddVoucherType'
-
     export default {
       name: 'Dashboard',
       data () {
@@ -31,33 +27,8 @@
         }
       },
       methods: {
-        check: function (value) {
-          if (value === 'acc') {
-            this.result = 'acc'
-          } else {
-            this.result = 'inv'
-          }
-        },
         cancel: function () {
           this.result = 'empty'
-        },
-        show: function (data) {
-          if (data === 'Ledger') {
-            this.$modal.show(Ledger,
-              {text: 'This text is passed as a property'},
-              {draggable: true})
-          } else if (data === 'Groups') {
-            this.$modal.show(Groups,
-              {text: 'This text is passed as a property'},
-              {draggable: true})
-          } else if (data === 'VoucherType') {
-            this.$modal.show(VoucherType,
-              {text: 'This text is passed as a property'},
-              {draggable: true})
-          }
-        },
-        hide: function () {
-          this.$modal.hide('my-first-modal')
         }
       }
     }

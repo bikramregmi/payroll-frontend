@@ -38,7 +38,7 @@
                 </table>
             </div>
         </div>
-        <paginate v-show="employee.length>5"
+        <paginate v-show="employee.length>2"
                 v-model="page"
                 :click-handler="getAllEmployees"
                 :container-class="'pagination'"
@@ -87,8 +87,9 @@
           this.$router.push(`/employeeSalary/${id}`)
         },
         deleteEmployee: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/id=${id}`, '', 'DELETE', function (data) {
-            alert(data.message)
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/${id}`, '', 'DELETE', function (data) {
+            location.reload()
+            alert('Successfully Deleted')
           })
         }
       }

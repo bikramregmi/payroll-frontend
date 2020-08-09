@@ -54,7 +54,7 @@
 
 <script>
     import VueDaval from 'vue-daval'
-    import SH from '../../../backend/backend'
+    import SH from '../../../../backend/backend'
     export default {
       name: 'AddVoucherType',
       mixins: [VueDaval],

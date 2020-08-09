@@ -74,11 +74,15 @@ export default new Router({
       }]
     },
     {
-      path: '/accounting',
+      path: '/accounting/:id',
       name: 'accounting',
       component: WelcomePage,
       children: [{
         path: '/ADashboard',
+        name: 'ADashboard',
+        component: ADashboard
+      }, {
+        path: '/ADashboard/:id',
         name: 'ADashboard',
         component: ADashboard
       }, {

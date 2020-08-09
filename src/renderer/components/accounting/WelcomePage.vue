@@ -54,17 +54,27 @@
 </template>
 
 <script>
-    import VueFileToolbarMenu from 'vue-file-toolbar-menu'
+    import SH from '../../backend/backend'
+    import VueFileToolbarMenu from 'vue-file-toolbar-menu/src/Bar/Bar'
     import Dashboard from '../accounting/Dashboard'
-    import Ledger from '../accounting/accountInfo/AddLedger'
-    import Groups from '../accounting/accountInfo/AddGroups'
-    import VoucherType from '../accounting/accountInfo/AddVoucherType'
+    import ListLedger from './accountInfo/ledger/listLedger'
+    // import Groups from './accountInfo/groups/AddGroups'
+    import ListVoucherType from './accountInfo/voucherType/ListVoucherType'
+    import ListGroup from './accountInfo/group/ListGroup'
+    import ListGroups from './accountInfo/groups/ListGroups'
 
     export default {
       name: 'WelcomePage',
       components: {VueFileToolbarMenu, Dashboard},
       data () {
-        return {happy: true}
+        return {happy: true,
+          id: this.$route.params.id,
+          checkCompany: {},
+          checkAllCompany: {}
+        }
+      },
+      created () {
+        this.retrieveAllCompany()
       },
       computed: {
         my_menu () {
@@ -75,54 +85,63 @@
                 },
                 {text: 'Select Company',
                   click: () => {
-                    this.happy = false
                     this.$router.push('/listCompany')
                   }}
               ]},
             {
               text: 'Masters',
-              disabled: this.happy,
-              active: this.happy,
+              disabled: !this.checkCompany.extraField,
               menu: [
                 {text: 'Account Info',
-                  disabled: this.happy,
+                  disabled: !this.checkCompany.extraField,
                   menu: [
+                    {text: 'Group', click: () => this.show('Group')},
+                    {text: 'Groups', click: () => this.show('Groups')},
                     {text: 'Ledger', click: () => this.show('Ledger')},
-                    {text: 'Voucher Type', click: () => this.show('VoucherType')},
-                    {text: 'Groups', click: () => this.show('Groups')}
+                    {text: 'Voucher Type', click: () => this.show('VoucherType')}
                   ] },
                 {text: 'Inventory Info',
-                  disabled: this.happy,
+                  disabled: !this.checkCompany.extraField,
                   menu: [
                     {text: 'Product Groups',
-                      disabled: this.happy,
-                      click: () => this.show('Ledger')},
+                      disabled: !this.checkCompany.extraField,
+                      click: () => this.show('VoucherType')},
                     {text: 'Product Items',
-                      disabled: this.happy,
+                      disabled: !this.checkCompany.extraField,
                       click: () => this.show('VoucherType')},
                     {text: 'Units of measures',
-                      disabled: this.happy,
+                      disabled: !this.checkCompany.extraField,
                       click: () => this.show('Groups')},
                     {text: 'Voucher Type',
-                      disabled: this.happy,
+                      disabled: !this.checkCompany.extraField,
                       click: () => this.show('VoucherType')}
 
                   ] }
               ]},
+            {text: 'Transactions',
+              disabled: !this.checkCompany.extraField,
+              menu: [
+                {text: 'Acc Voucher', click: () => this.$router.push('/addCompany')
+                },
+                {text: 'Inv Voucher',
+                  click: () => {
+                    this.$router.push('/listCompany')
+                  }}
+              ]},
             {text: 'Entries',
-              disabled: this.happy
+              disabled: !this.checkCompany.extraField
 
             },
             {text: 'Report',
-              disabled: this.happy
+              disabled: !this.checkCompany.extraField
 
             },
             {text: 'Printing',
-              disabled: this.happy
+              disabled: !this.checkCompany.extraField
 
             },
             {text: 'Help',
-              disabled: this.happy
+              disabled: !this.checkCompany.extraField
 
             }
           ]
@@ -144,21 +163,44 @@
         },
         show: function (data) {
           if (data === 'Ledger') {
-            this.$modal.show(Ledger,
+            this.$modal.show(ListLedger,
               {text: 'This text is passed as a property'},
               {draggable: true})
           } else if (data === 'Groups') {
-            this.$modal.show(Groups,
+            this.$modal.show(ListGroups,
               {text: 'This text is passed as a property'},
               {draggable: true})
           } else if (data === 'VoucherType') {
-            this.$modal.show(VoucherType,
+            this.$modal.show(ListVoucherType,
               {text: 'This text is passed as a property'},
               {draggable: true})
+          } else if (data === 'Group') {
+            if (data === 'createGroup') {
+              this.$modal.show(ListGroups,
+                {draggable: true})
+            } else {
+              this.$modal.show(ListGroup,
+                {draggable: true})
+            }
           }
         },
-        hide: function () {
+        /*  hide: function () {
           this.$modal.hide('my-first-modal')
+        }, */
+        retrieveCompany: function (id) {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'GET', function (data) {
+            this.checkCompany = data
+          }.bind(this))
+        },
+        retrieveAllCompany: function () {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies`, '', 'GET', function (data) {
+            this.checkAllCompany = data
+            for (let i = 0; i < this.checkAllCompany.length; i++) {
+              if (this.checkAllCompany[i].extraField) {
+                this.retrieveCompany(this.checkAllCompany[i].id)
+              }
+            }
+          }.bind(this))
         }
       }
     }

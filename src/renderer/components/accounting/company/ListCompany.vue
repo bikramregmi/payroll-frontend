@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h5 class="card-title">List Of All Employees</h5>
+        <h5 class="card-title">List of all Companies</h5>
         <hr>
         <!--         <button class="btn btn-primary m-1" v-on:click="addNewServiceContact('new')">Add New Contact</button>-->
         <div class="row">
@@ -17,12 +17,15 @@
                         <th scope="row">{{itemIndex+1}}</th>
                         <td>{{item.companyName}}</td>
                         <td>
-<!--                            <button @click="selectCompany(item.id)" type="submit" class="btn btn-info">-->
-<!--                                Select-->
-<!--                            </button>-->
+                            <button v-show="!item.extraField" @click="selectCompany(item.id,'select')" type="submit" class="btn btn-info">
+                                Select
+                            </button>
+                            <button v-show="item.extraField" @click="selectCompany(item.id,'unselect')" type="submit" class="btn btn-info">
+                                Unselect
+                            </button>
                         </td>
                         <td>
-                            <button v-shortkey="['esc']" @shortkey="cancel()" @click="deleteEmployee(item.id)" type="submit" class="btn btn-danger">Delete</button>
+                            <button v-shortkey="['esc']" @shortkey="cancel()" @click="deleteCompany(item.id)" type="submit" class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                     </tbody>
@@ -31,7 +34,7 @@
         </div>
         <paginate v-show="company.length>5"
                   v-model="page"
-                  :click-handler="getAllEmployees"
+                  :click-handler="getAllCompanies"
                   :container-class="'pagination'"
                   :page-class="'page-item'"
                   :pageLinkClass="'page-link-item'"
@@ -54,31 +57,27 @@
           queryCount: null,
           previousPage: 1,
           page: 1,
-          companySelected: false
+          companySelected: false,
+          checkCompany: ''
         }
       },
       created () {
-        this.getAllEmployees()
+        this.getAllCompanies()
       },
       methods: {
         cancel: function () {
           this.$router.push(`/ADashboard`)
         },
-        selectCompany () {
-          // this.companySelected = true
-          // const data = {
-          //   selectedCompany: 'true',
-          //   id: id
-          // }
-          // SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/selectedCompany?id=${data.id}&selectedCompany=${data.selectedCompany}`, '', 'POST', function (data) {
-          //   if (data.responseStatus === 'SUCCESS') {
-          //     this.$router.push(`/ADashboard`)
-          //   } else {
-          //     alert(data.message)
-          //   }
-          // }.bind(this))
+        selectCompany (id, status) {
+          this.companySelected = true
+          if (status === 'select') {
+            this.selectedCompany = true
+          } else { this.selectedCompany = '' }
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/selectedCompany?id=${id}&selectedCompany=${this.selectedCompany}`, '', 'PUT', function (data) {
+          })
+          location.reload()
         },
-        getAllEmployees: function (pageNum) {
+        getAllCompanies: function (pageNum) {
           const paginationQuery = {
             page: pageNum - 1,
             size: this.itemsPerPage,
@@ -89,15 +88,13 @@
           }.bind(this))
           this.$forceUpdate()
         },
-        updateEmployeeInformation: function (id) {
+        updateCompanyInformation: function (id) {
           this.$router.push(`/updateEmployeeInformation/${id}`)
         },
-        createSalary: function (id) {
-          this.$router.push(`/employeeSalary/${id}`)
-        },
-        deleteEmployee: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/id=${id}`, '', 'DELETE', function (data) {
-            alert(data.message)
+        deleteCompany: function (id) {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'DELETE', function (data) {
+            location.reload()
+            alert('Successfully Deleted')
           })
         }
       }

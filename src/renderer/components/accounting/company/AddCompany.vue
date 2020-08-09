@@ -32,6 +32,8 @@
                         <span v-show="errorMessage==false || email" class="input-group-text" id="inputGroupPrepend1">Email</span>
                         <span v-show="errorMessage==true && !email " class="input-group-text"
                               id="inputGroupPrependSpan">{{$vd.email.$errors[0]}}</span>
+                        <span v-show="errorMessage==true && email " class="input-group-text"
+                              id="inputGroupPrependSpan">{{$vd.email.$errors[1]}}</span>
                     </div>
                     <input type="text" class="form-control" id="email" v-model="email">
                     <hr>
@@ -193,11 +195,11 @@
           }
           this.$vd.$validate().then(() => {
             SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies`, data, 'POST', function (data) {
-              if (data.responseStatus === 'SUCCESS') {
+              if (data) {
                 alert(data.message)
                 this.$router.push('/listCompany')
               } else {
-                alert(data.message)
+                alert('Error')
               }
             }.bind(this))
           }).catch(() => {
