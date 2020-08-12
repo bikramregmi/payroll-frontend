@@ -1,8 +1,8 @@
 <template>
-    <div style="margin-left: 30px;margin-top: 10px;">
+    <div class="popup-class">
         <h5 class="card-title">Create Group</h5><hr>
         <div  class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">Name</span>
@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" id="name" v-model="name" aria-describedby="name">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend1">Description</span>

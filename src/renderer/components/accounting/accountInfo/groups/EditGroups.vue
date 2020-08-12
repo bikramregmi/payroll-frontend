@@ -1,9 +1,9 @@
 <template>
-        <div style="margin-left: 30px;margin-top: 10px;">
+        <div class="popup-class">
             <h5 class="card-title">Edit Groups</h5>
             <hr>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">Name</span>
@@ -13,7 +13,7 @@
                                aria-describedby="name">
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend1">Group</span>

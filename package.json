@@ -63,6 +63,7 @@
     "date-fns": "2.14.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
+    "saas": "^1.0.0",
     "swagger-ui-dist": "3.25.4",
     "vue": "^2.5.16",
     "vue-daval": "^2.0.13",

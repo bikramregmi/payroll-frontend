@@ -1,8 +1,8 @@
 <template>
-    <div style="margin-left: 30px;margin-top: 10px;">
+    <div class="popup-class">
         <h5 class="card-title">Create Ledger</h5><hr>
         <div  class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">Name</span>
@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" id="fullName" v-model="name" aria-describedby="name">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend1">Groups</span>
@@ -29,7 +29,7 @@
         <hr>
         <h6 class="card-title">Mailing Address</h6>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend2">Name</span>
@@ -38,7 +38,7 @@
                     <input type="text" class="form-control" id="mailingName" v-model="mailingName" >
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend3">Address</span>
@@ -50,7 +50,7 @@
         </div>
         <hr>
         <h6 class="card-title">Tax Registration Details</h6>
-        <div style="padding-left: 0px;" class="col-md-5">
+        <div style="padding-left: 0px;" class="col-md-6">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend2">PanNo.</span>

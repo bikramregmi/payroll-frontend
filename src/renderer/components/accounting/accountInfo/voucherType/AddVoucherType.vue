@@ -1,8 +1,8 @@
 <template>
-    <div style="margin-left: 30px;margin-top: 10px;">
+    <div class="popup-class">
         <h5 class="card-title">Create VoucherType</h5><hr>
         <div  class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">Name</span>
@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" id="fullName" v-model="fullName" aria-describedby="fullName">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend1">Voucher Type</span>
@@ -24,7 +24,7 @@
         <hr>
         <h6 class="card-title">Voucher Details</h6>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend2">Dates</span>
@@ -33,7 +33,7 @@
                     <input type="text" class="form-control" id="email" v-model="email" >
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend3">Naration</span>

@@ -58,16 +58,19 @@
     import VueFileToolbarMenu from 'vue-file-toolbar-menu/src/Bar/Bar'
     import Dashboard from '../accounting/Dashboard'
     import ListLedger from './accountInfo/ledger/listLedger'
-    // import Groups from './accountInfo/groups/AddGroups'
     import ListVoucherType from './accountInfo/voucherType/ListVoucherType'
     import ListGroup from './accountInfo/group/ListGroup'
     import ListGroups from './accountInfo/groups/ListGroups'
+    import ListProductGroup from './inventoryInfo/productGroups/ListProductGroup'
+    import ListProductItem from './inventoryInfo/productItems/ListProductItem'
+    import ListUnitMeasures from './inventoryInfo/unitMeasures/ListUnitMeasure'
 
     export default {
       name: 'WelcomePage',
       components: {VueFileToolbarMenu, Dashboard},
       data () {
-        return {happy: true,
+        return {
+          happy: true,
           id: this.$route.params.id,
           checkCompany: {},
           checkAllCompany: {}
@@ -79,68 +82,95 @@
       computed: {
         my_menu () {
           return [
-            {text: 'Company',
+            {
+              text: 'Company',
               menu: [
-                {text: 'Create Company', click: () => this.$router.push('/addCompany')
+                {
+                  text: 'Create Company', click: () => this.$router.push('/addCompany')
                 },
-                {text: 'Select Company',
+                {
+                  text: 'Select Company',
                   click: () => {
                     this.$router.push('/listCompany')
-                  }}
-              ]},
+                  }
+                }
+              ]
+            },
             {
               text: 'Masters',
               disabled: !this.checkCompany.extraField,
               menu: [
-                {text: 'Account Info',
+                {
+                  text: 'Account Info',
                   disabled: !this.checkCompany.extraField,
                   menu: [
                     {text: 'Group', click: () => this.show('Group')},
                     {text: 'Groups', click: () => this.show('Groups')},
                     {text: 'Ledger', click: () => this.show('Ledger')},
                     {text: 'Voucher Type', click: () => this.show('VoucherType')}
-                  ] },
-                {text: 'Inventory Info',
+                  ]
+                },
+                {
+                  text: 'Inventory Info',
                   disabled: !this.checkCompany.extraField,
                   menu: [
-                    {text: 'Product Groups',
+                    {
+                      text: 'Product Groups',
                       disabled: !this.checkCompany.extraField,
-                      click: () => this.show('VoucherType')},
-                    {text: 'Product Items',
+                      click: () => this.show('ProductGroups')
+                    },
+                    {
+                      text: 'Product Items',
                       disabled: !this.checkCompany.extraField,
-                      click: () => this.show('VoucherType')},
-                    {text: 'Units of measures',
+                      click: () => this.show('ProductItems')
+                    },
+                    {
+                      text: 'Units of measures',
                       disabled: !this.checkCompany.extraField,
-                      click: () => this.show('Groups')},
-                    {text: 'Voucher Type',
+                      click: () => this.show('UnitMeasures')
+                    },
+                    {
+                      text: 'Voucher Type',
                       disabled: !this.checkCompany.extraField,
-                      click: () => this.show('VoucherType')}
+                      click: () => this.show('VoucherType')
+                    }
 
-                  ] }
-              ]},
-            {text: 'Transactions',
+                  ]
+                }
+              ]
+            },
+            {
+              text: 'Transactions',
               disabled: !this.checkCompany.extraField,
               menu: [
-                {text: 'Acc Voucher', click: () => this.$router.push('/addCompany')
+                {
+                  text: 'Acc Voucher', click: () => this.$router.push('/addCompany')
                 },
-                {text: 'Inv Voucher',
+                {
+                  text: 'Inv Voucher',
                   click: () => {
                     this.$router.push('/listCompany')
-                  }}
-              ]},
-            {text: 'Entries',
+                  }
+                }
+              ]
+            },
+            {
+              text: 'Entries',
               disabled: !this.checkCompany.extraField
 
             },
-            {text: 'Report',
+            {
+              text: 'Report',
               disabled: !this.checkCompany.extraField
 
             },
-            {text: 'Printing',
+            {
+              text: 'Printing',
               disabled: !this.checkCompany.extraField
 
             },
-            {text: 'Help',
+            {
+              text: 'Help',
               disabled: !this.checkCompany.extraField
 
             }
@@ -182,11 +212,20 @@
               this.$modal.show(ListGroup,
                 {draggable: true})
             }
+          } else if (data === 'ProductGroups') {
+            this.$modal.show(ListProductGroup,
+              {draggable: true})
+          } else if (data === 'ProductItems') {
+            this.$modal.show(ListProductItem,
+              {draggable: true})
+          } else if (data === 'UnitMeasures') {
+            this.$modal.show(ListUnitMeasures,
+              {draggable: true})
           }
         },
         /*  hide: function () {
-          this.$modal.hide('my-first-modal')
-        }, */
+              this.$modal.hide('my-first-modal')
+            }, */
         retrieveCompany: function (id) {
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'GET', function (data) {
             this.checkCompany = data
