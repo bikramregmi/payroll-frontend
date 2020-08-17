@@ -28,7 +28,7 @@
         </div>
         <paginate v-show="voucherTypes.length>2"
                   v-model="page"
-                  :click-handler="retriveLedger"
+                  :click-handler="retriveVoucherType"
                   :container-class="'pagination'"
                   :page-class="'page-item'"
                   :pageLinkClass="'page-link-item'"
@@ -39,7 +39,7 @@
             <p style="color:black;margin-left: 10px;">Data Not Available</p>
             <paginate
                     v-model="page"
-                    :click-handler="retriveLedger"
+                    :click-handler="retriveVoucherType"
                     :container-class="'pagination'"
                     :page-class="'page-item'"
                     :pageLinkClass="'page-link-item'"
@@ -71,7 +71,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         edit: function (id) {
           this.$modal.show(EditVoucherType,
@@ -94,7 +94,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             if (data) {
               this.voucherTypes = data
             } else {

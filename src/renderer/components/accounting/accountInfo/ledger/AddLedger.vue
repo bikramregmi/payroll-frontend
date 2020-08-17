@@ -96,7 +96,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         show: function () {
           this.$modal.show(Groups,

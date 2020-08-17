@@ -71,7 +71,7 @@ export default {
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         edit: function (id) {
           this.$modal.show(EditUnitMeasure,

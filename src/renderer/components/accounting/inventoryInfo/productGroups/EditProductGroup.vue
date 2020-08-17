@@ -1,5 +1,4 @@
 <template>
-    <modal name="product">
         <div class="popup-class">
             <h5 class="card-title">Edit Product Group</h5>
             <hr>
@@ -38,7 +37,6 @@
             <button @click="save(id)" type="submit" class="btn btn-primary">Submit</button>
             <button v-shortkey="['esc']" @shortkey="cancel()" @click="cancel()" class="btn btn-primary">Cancel</button>
         </div>
-    </modal>
 </template>
 
 <script>
@@ -72,7 +70,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hide('product')
+          this.$emit('close')
         },
         retriveProductGroups: function (id) {
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups/${id}`, '', 'GET', function (data) {

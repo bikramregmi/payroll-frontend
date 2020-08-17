@@ -82,7 +82,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         retriveUnitOfMeasure: function (id) {
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures/${id}`, '', 'GET', function (data) {

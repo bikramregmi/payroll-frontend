@@ -31,16 +31,17 @@ function createWindow () {
     mainWindow = null
   })
 }
+// app.on('ready', createWindow)
 
 app.on('ready', function () {
   createWindow()
-  /* let template = [{
-    label: 'Company Details',
-    click: function () {
-      this.$router.push('/addCompany')
-    }
-  }]
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template)) */
+  //  let template = [{
+  //   label: 'Company Details',
+  //   click: function () {
+  //     this.$router.push('/addCompany')
+  //   }
+  // }]
+  // Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
   Menu.setApplicationMenu(null)
 })

@@ -60,7 +60,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         save: function () {
           const data = {
