@@ -64,6 +64,7 @@
     import ListProductGroup from './inventoryInfo/productGroups/ListProductGroup'
     import ListProductItem from './inventoryInfo/productItems/ListProductItem'
     import ListUnitMeasures from './inventoryInfo/unitMeasures/ListUnitMeasure'
+    import AccountingVoucher from '../accounting/accountingVoucher/AccountingVoucher'
 
     export default {
       name: 'WelcomePage',
@@ -144,7 +145,10 @@
               disabled: !this.checkCompany.extraField,
               menu: [
                 {
-                  text: 'Acc Voucher', click: () => this.$router.push('/addCompany')
+                  text: 'Acc Voucher',
+                  click: () => this.$modal.show(AccountingVoucher,
+                    {text: 'This text is passed as a property'},
+                    {draggable: true})
                 },
                 {
                   text: 'Inv Voucher',
