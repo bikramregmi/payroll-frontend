@@ -20,32 +20,49 @@
                            aria-describedby="salesLedger">
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="windowHeight>700">
                 <div class="col-md-1">
-                    <h6 style="margin-left: 130px;" class="card-title"><u><b>Sn</b></u></h6>
+                    <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
                 </div>
                 <div class="col-md-3">
-                    <h6 style="margin-left: 130px;" class="card-title"><u><b>Item</b></u></h6>
+                    <h6 style="margin-left: 90px;" class="card-title"><b>Item</b></h6>
+                </div>
+                <div class="col-md-1">
+                    <h6 class="card-title"><b>Quantity</b></h6>
+                </div>
+                <div class="col-md-1">
+                    <h6 style="margin-left: 30px;" class="card-title"><b>Rate</b></h6>
                 </div>
                 <div class="col-md-3">
-                    <h6 style="margin-left: 200px;" class="card-title"><u><b>Quantity</b></u></h6>
+                    <h6 style="margin-left: 50px;" class="card-title"><b>Amount</b></h6>
                 </div>
-                <div class="col-md-2">
-                    <h6 style="margin-left: 100px;" class="card-title"><u><b>Rate</b></u></h6>
+            </div>
+            <div class="row" v-else>
+                <div class="col-md-1">
+                    <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
                 </div>
                 <div class="col-md-3">
-                    <h6 style="margin-left: 70px;" class="card-title"><u><b>Amount</b></u></h6>
+                    <h6 style="margin-left: 130px;" class="card-title"><b>Item</b></h6>
+                </div>
+                <div class="col-md-1">
+                    <h6 style="margin-left: 90px;" class="card-title"><b>Quantity</b></h6>
+                </div>
+                <div class="col-md-1">
+                    <h6 style="margin-left: 140px;" class="card-title"><b>Rate</b></h6>
+                </div>
+                <div class="col-md-3">
+                    <h6 style="margin-left: 180px;" class="card-title"><b>Amount</b></h6>
                 </div>
             </div>
             <div>
-                <div class="list-keep scroll-touch" style="height: 304px;width:900px;"
+                <div class="list-keep scroll-touch" style="height: 304px;width:700px;"
                      :data-key="'id'"
                      :estimate-size="100"
                      :item-class="'list-item-keep'">
-                    <div class="item-inner" v-for="(item,index) in 10" :set="index=index+1">
+                    <div class="item-inner" v-for="(item,index) in 20" :set="index=index+1">
                         <div class="row">
                             <div class="col-md-1" style="color: #6a6a6a;padding-right: 2px;">
-                                <input style="" type="text" class="form-control" id=""
+                                <input style="padding-right: 6px;" type="text" class="form-control" id="" disabled
                                        v-model="index">
                             </div>
                             <div class="col-md-5" style="padding: 0px;">
@@ -91,7 +108,7 @@
                        aria-describedby="currentBalance">
                 </div>
                 <br>
-                <button style="margin-left: 350px;" @click="save()" type="submit" class="btn btn-primary">Save</button>
+                <button style="margin-left: 150px;" @click="save()" type="submit" class="btn btn-primary">Save</button>
                 <button @click="save()" type="submit" class="btn btn-primary">Exit</button>
             </div>
         </div>
@@ -121,7 +138,63 @@
           items: DataItems,
           itemComponent: Item,
           accountingVoucerDetail: '',
+          windowHeight: '',
           salesVoucherTypes: [{
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
+            amount: '',
+            item: '',
+            quantity: '',
+            rate: ''
+          }, {
             amount: '',
             item: '',
             quantity: '',
@@ -192,6 +265,7 @@
         }
       },
       mounted () {
+        window.addEventListener('resize', () => { this.windowHeight = window.innerHeight })
         const TOTAL_COUNT = 10
         let count = TOTAL_COUNT
         while (count--) {
