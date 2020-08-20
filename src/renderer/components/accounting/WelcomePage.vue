@@ -65,7 +65,7 @@
     import ListProductItem from './inventoryInfo/productItems/ListProductItem'
     import ListUnitMeasures from './inventoryInfo/unitMeasures/ListUnitMeasure'
     import AccountingVoucher from './accountingVoucher/AccountingVoucher'
-    import Main from '../accounting/accountInfo/fixed-size/Main'
+    // import Main from '../accounting/accountInfo/fixed-size/Main'
 
     export default {
       name: 'WelcomePage',
@@ -158,9 +158,7 @@
             },
             {
               text: 'Entries',
-              click: () => this.$modal.show(Main,
-                {text: 'This text is passed as a property'},
-                {draggable: true}),
+              click: () => this.$router.push('/entries'),
               disabled: !this.checkCompany.extraField
             },
             {

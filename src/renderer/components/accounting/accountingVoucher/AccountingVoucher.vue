@@ -122,13 +122,13 @@
                 </div>
                 <div class="row" v-for="(item,index) in page">
                     <div class="input-group"><p style="color: red;"></p>
-                        <input type="text" class="form-control" id="sheet-class" v-model="salesVoucherTypes[index].item"
+                        <input type="text" class="form-control" id="sheet-class" v-model="salesVoucherTypes.item"
                                aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="quantity" v-model="salesVoucherTypes[index].quantity"
+                        <input type="text" class="form-control" id="quantity" v-model="salesVoucherTypes.quantity"
                                aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="rate" v-model="salesVoucherTypes[index].rate"
+                        <input type="text" class="form-control" id="rate" v-model="salesVoucherTypes.rate"
                                aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="amount" v-model="salesVoucherTypes[index].amount"
+                        <input type="text" class="form-control" id="amount" v-model="salesVoucherTypes.amount"
                                aria-describedby="currentBalance">
                         <button @click="test(salesVoucherTypes.amount)">click</button>
                     </div>

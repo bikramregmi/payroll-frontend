@@ -1,36 +1,44 @@
 <template>
     <div>
         <div class="item-inner">
-<!--            <div class="row" v-for="(item,index) in page">-->
-                <div class="input-group"><p style="color: red;">v</p>
-                    <input type="text" class="form-control" id="sheet-class" v-model="salesVoucherTypes.item"
-                           aria-describedby="currentBalance">
-                    <input type="text" class="form-control" id="quantity" v-model="salesVoucherTypes.quantity"
-                           aria-describedby="currentBalance">
-                    <input type="text" class="form-control" id="rate" v-model="salesVoucherTypes.rate"
-                           aria-describedby="currentBalance">
-                    <input type="text" class="form-control" id="amount" @change="onChange(salesVoucherTypes.item,salesVoucherTypes.quantity,salesVoucherTypes.rate,salesVoucherTypes.amount,source.name)" v-model="salesVoucherTypes.amount"
-                           aria-describedby="currentBalance">
-<!--                    <button @click="test(salesVoucherTypes.amount)">click</button>-->
-<!--                </div>-->
+            <!--            <div class="row" v-for="(item,index) in page">-->
+            <div class="input-group"><p style="color: red;">{{source.narration}}{{source.referenceNumber}}{{source.salesLedger}}{{source.currentBalance}}</p>
+                <input type="text" class="form-control" id="sheet-class" v-model="salesVoucherTypes.item"
+                       aria-describedby="currentBalance">
+                <input type="text" class="form-control" id="quantity" v-model="salesVoucherTypes.quantity"
+                       aria-describedby="currentBalance">
+                <input type="text" class="form-control" id="rate" v-model="salesVoucherTypes.rate"
+                       aria-describedby="currentBalance">
+                <input type="text" class="form-control" id="amount"
+                       @change="onChange(salesVoucherTypes.item,salesVoucherTypes.quantity,salesVoucherTypes.rate,salesVoucherTypes.amount,source.name)"
+                       v-model="salesVoucherTypes.amount"
+                       aria-describedby="currentBalance">
+                <!--                    <button @click="test(salesVoucherTypes.amount)">click</button>-->
+                <!--                </div>-->
             </div>
-<!--            <input class="text" @change="onChange" type="text"/>-->
-            <span style="color: greenyellow" class="name" @click="onClickName">{{ source.name }}</span>
+            <!--            <input class="text" @change="onChange" type="text"/>-->
+            <!--            <span style="color: greenyellow" class="name" @click="onClickName">{{ source.name }}</span>-->
         </div>
-       <div style="color: red">{{types.salesVoucherTypeTotalDTO.quantityTotal}}</div>
+        <div style="color: red"   :data-sources="items"
+             :data-component="itemComponent">{{types.salesVoucherTypeTotalDTO.quantityTotal}}</div>
     </div>
 </template>
 
 <script>
     // import mixins from './mixins'
     import SH from '../../../../backend/backend'
+    import ItemComponent from '../item'
+    import Main from './Main'
+    const DataItems = []
 
     export default {
       name: 'keep-state-item',
-
+      components: {ItemComponent},
       // mixins: [mixins],
       data () {
         return {
+          items: DataItems,
+          itemComponent: Main,
           // page: [1, 2, 3, 4, 5, 6, 7, 8],
           salesVoucherTypes: {
             amount: '',
@@ -38,6 +46,8 @@
             quantity: '',
             rate: ''
           },
+          data: '',
+          hell: 'welcom',
           referenceNumber: '',
           total: '',
           types: {
@@ -55,8 +65,7 @@
           default () {
             return {}
           }
-        }
-      },
+        }},
       methods: {
         onChange (i, q, r, a, rn) {
           alert(i + q + r + a)
@@ -70,19 +79,14 @@
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
               this.types = data
+              alert(this.types.item)
+              DataItems.push({
+                item: this.types.item
+              })
             } else {
               this.types = 'Error Fetching Data'
             }
           }.bind(this))
-          // let fst = i
-        /*  alert(fst)
-          localStorage.setItem('total', parseInt(fst, 10))
-          alert(localStorage.getItem('total'))
-          fst = 0
-          this.total = parseInt(localStorage.getItem('total'), 10) + parseInt(fst, 10)
-          alert(this.total) */
-
-          // this.dispatch('keep-state', 'checkBoxValueChange', this.source.id, e.target.checked)
         },
 
         onClickName () {

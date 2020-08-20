@@ -16,6 +16,7 @@ import MainDashboard from '../components/mainDashboard/MainDashboard'
 import ADashboard from '../components/accounting/Dashboard'
 import AddCompany from '../components/accounting/company/AddCompany'
 import ListCompany from '../components/accounting/company/ListCompany'
+import MainPage from '../components/accounting/accountInfo/fixed-size/Main'
 
 Vue.use(Router)
 
@@ -93,6 +94,10 @@ export default new Router({
         path: '/listCompany',
         name: 'listCompany',
         component: ListCompany
+      }, {
+        path: '/entries',
+        name: 'entries',
+        component: MainPage
       }]
     },
     {
