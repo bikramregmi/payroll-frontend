@@ -25,7 +25,7 @@ Vue.use(VModal, {
   dynamicDefaults: {
     draggable: true,
     resizable: true,
-    height: 435,
+    height: 500,
     width: 850
   }
 })

@@ -94,11 +94,11 @@
                             </div>
                             <div class="col-md-4">
                                 <h6 class="card-title">Sales Ledger: </h6>
-                                <input type="text" class="form-control" id="sheet-class" v-model="salesLedger"
+                                <input type="text" class="form-control" id="sheet-class" v-model="types.id"
                                        aria-describedby="salesLedger">
                             </div>
                         </div>
-                        <div class="row" v-if="windowHeight>700">
+                        <div class="row" v-if="windowHeight>600">
                             <div class="col-md-1">
                                 <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
                             </div>
@@ -106,13 +106,13 @@
                                 <h6 style="margin-left: 90px;" class="card-title"><b>Item</b></h6>
                             </div>
                             <div class="col-md-1">
-                                <h6 class="card-title"><b>Quantity</b></h6>
+                                <h6 style="margin-left: 100px;" class="card-title"><b>Quantity</b></h6>
                             </div>
                             <div class="col-md-1">
-                                <h6 style="margin-left: 30px;" class="card-title"><b>Rate</b></h6>
+                                <h6 style="margin-left: 140px;" class="card-title"><b>Rate</b></h6>
                             </div>
                             <div class="col-md-3">
-                                <h6 style="margin-left: 50px;" class="card-title"><b>Amount</b></h6>
+                                <h6 style="margin-left: 190px;" class="card-title"><b>Amount</b></h6>
                             </div>
                         </div>
                         <div class="row" v-else>
@@ -129,7 +129,7 @@
                                 <h6 style="margin-left: 140px;" class="card-title"><b>Rate</b></h6>
                             </div>
                             <div class="col-md-3">
-                                <h6 style="margin-left: 180px;" class="card-title"><b>Amount</b></h6>
+                                <h6 style="margin-left: 190px;" class="card-title"><b>Amount</b></h6>
                             </div>
                         </div>
                         <div>
@@ -139,14 +139,18 @@
                                  :item-class="'list-item-keep'">
                                 <div class="item-inner" v-for="(item,index) in 20" :set="index=index+1">
                                     <div class="row">
-                                        <div class="col-md-1" style="color: #6a6a6a;padding-right: 2px;">
+                                          <input type="text" class="form-control"
+                                                                v-model="types.id" hidden>
+                                        <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
                                             <input style="padding-right: 6px;" type="text" class="form-control" id=""
                                                    disabled
                                                    v-model="index">
                                         </div>
                                         <div class="col-md-5" style="padding: 0px;">
+                                            <input style="padding: 0px;width:392px;" type="text" class="form-control" value="index"
+                                                   v-model="salesVoucherTypes[index].uniqueKey" hidden>
                                             <input style="padding: 0px;width:392px;" type="text" class="form-control"
-                                                   id=""
+                                                   id="" @change="clearValue(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount)"
                                                    v-model="salesVoucherTypes[index].item"
                                                    aria-describedby="currentBalance">
                                         </div>
@@ -160,11 +164,12 @@
                                             <input style="padding: 0px;width:150px" type="text" class="form-control"
                                                    id="rate"
                                                    v-model="salesVoucherTypes[index].rate"
-                                                   aria-describedby="currentBalance">
+                                                   aria-describedby="currentBalance"
+                                                   @keyup="calculateAmount(salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,index)">
                                         </div>
                                         <div class="col-md-2">
                                             <input style="padding: 0px;" type="text" class="form-control" id="amount"
-                                                   @change="onChange(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount,referenceNumber)"
+                                                   @keyup="onChange(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount,index,referenceNumber)"
                                                    v-model="salesVoucherTypes[index].amount"
                                                    aria-describedby="currentBalance">
                                         </div>
@@ -184,7 +189,7 @@
                             <div v-show="show">
                                 <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.quantityTotal}}</span>
                                 <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.rateTotal}}</span>
-                                <span style="margin-left: 60px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.amountTotal}}</span>
+                                <span style="margin-left: 60px;background-color: #4fc08d;width:150px;">{{types.salesVoucherTypeTotalDTO.amountTotal}}</span>
                                 <input style="padding: 0px;width:454px;" type="text" class="form-control" id=""
                                        v-model="types.salesVoucherTypeTotalDTO.amountTotal" hidden
                                        aria-describedby="currentBalance">
@@ -274,114 +279,137 @@
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
-            rate: ''
+            rate: '',
+            uniqueKey: ''
           }],
           types: {
+            id: '',
             salesVoucherTypeTotalDTO: {
               quantityTotal: '',
               rateTotal: '',
@@ -417,25 +445,40 @@
           this.windowHeight = window.innerHeight
         })
         /* const TOTAL_COUNT = 10
-                    let count = TOTAL_COUNT
-                    while (count--) {
-                      const index = TOTAL_COUNT - count
-                      DataItems.push({
-                        index,
-                        total: {
-                          referenceNumber: this.referenceNumber
-                        },
-                        checked: false
-                      })
-                    } */
+                        let count = TOTAL_COUNT
+                        while (count--) {
+                          const index = TOTAL_COUNT - count
+                          DataItems.push({
+                            index,
+                            total: {
+                              referenceNumber: this.referenceNumber
+                            },
+                            checked: false
+                          })
+                        } */
       },
       methods: {
-        onChange (i, q, r, a, rn) {
+        calculateAmount: function (quantity, rate, index) {
+          if (rate != null) {
+            this.salesVoucherTypes[index].amount = quantity * rate
+          }
+        },
+        clearValue: function (item, quantity, rate, amount) {
+          if (item != null && quantity === '' && rate === '' && amount === '') {
+            this.types.id = ''
+          } else if (quantity != null && item === '' && rate === '' && amount === '') {
+            this.types.id = ''
+          }
+        },
+        onChange (i, q, r, a, uk, rn) {
+          alert(uk)
           const item = {
-            amount: a,
+            id: this.types.id,
+            amount: q * r,
             item: i,
             quantity: q,
             rate: r,
+            uniqueKey: uk,
             referenceNumber: rn
           }
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
@@ -445,6 +488,7 @@
             } else {
               this.types = 'Error Fetching Data'
             }
+            this.$forceUpdate()
           }.bind(this))
         },
         cancel: function () {
@@ -480,9 +524,6 @@
         test: function (data) {
           alert(data)
         },
-        increasePage: function (page) {
-          this.page = page + 1
-        },
         showForm: function (data) {
           this.show = true
           this.formName = data
@@ -511,6 +552,64 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
+    .selects {
+        margin-bottom: 1em;
+        font-size: 14px;
+    }
 
+    .list-keep {
+        width: 100%;
+        height: 500px;
+        border: 2px solid;
+        border-radius: 3px;
+        overflow-y: auto;
+        border-color: dimgray;
+
+        .list-item-keep {
+            display: flex;
+            align-items: center;
+            padding: 0 1em;
+            height: 60px;
+            border-bottom: 1px solid;
+            border-color: lightgray;
+        }
+    }
+
+    .item-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .index {
+            margin-right: 1em;
+        }
+
+        .name {
+            margin-left: 1em;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox {
+            text-align: center;
+            width: 30px;
+            height: 30px;
+            border: none;
+            outline: none;
+            appearance: none;
+            margin: 0;
+        }
+
+        .checkbox {
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center left;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='-10 -18 100 135'%3E%3Ccircle cx='50' cy='50' r='50' fill='none' stroke='%23ededed' stroke-width='3'/%3E%3C/svg%3E");
+        }
+
+        .checkbox:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='-10 -18 100 135'%3E%3Ccircle cx='50' cy='50' r='50' fill='none' stroke='%23c28ce2' stroke-width='3'/%3E%3Cpath fill='%239b4dca' d='M72 25L42 71 27 56l-4 4 20 20 34-52z'/%3E%3C/svg%3E");
+        }
+    }
 </style>
