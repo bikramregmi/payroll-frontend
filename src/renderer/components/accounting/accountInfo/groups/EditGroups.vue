@@ -74,10 +74,9 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         retriveGroups: function (id) {
-          alert(id)
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/group/${id}`, '', 'GET', function (data) {
             if (data) {
               this.groupDetail = data

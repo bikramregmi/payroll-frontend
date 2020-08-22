@@ -6,18 +6,18 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">Name</span>
-                        <span v-show="errorMessage==true && !fullName" class="input-group-text" id="inputGroupPrependSpan">{{$vd.fullName.$errors[0]}}</span>
+                        <span v-show="errorMessage==true && !name" class="input-group-text" id="inputGroupPrependSpan">{{$vd.name.$errors[0]}}</span>
                     </div>
-                    <input type="text" class="form-control" id="fullName" v-model="fullName" aria-describedby="fullName">
+                    <input type="text" class="form-control" id="fullName" v-model="name" aria-describedby="fullName">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend1">Voucher Type</span>
-                        <span v-show="errorMessage==true && !eCode " class="input-group-text" id="inputGroupPrependSpan">{{$vd.eCode.$errors[0]}}</span>
+                        <span v-show="errorMessage==true && !type " class="input-group-text" id="inputGroupPrependSpan">{{$vd.type.$errors[0]}}</span>
                     </div>
-                    <input type="text" class="form-control" id="eCode" v-model="eCode" ><hr>
+                    <input type="text" class="form-control" id="eCode" v-model="type" ><hr>
                 </div>
             </div>
         </div>
@@ -28,9 +28,9 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend2">Dates</span>
-                        <span v-show="errorMessage==true && $vd.email.$errors[0]" class="input-group-text" id="inputGroupPrependSpan">{{$vd.email.$errors[0]}}</span>
+                        <span v-show="errorMessage==true && method" class="input-group-text" id="inputGroupPrependSpan">{{$vd.method.$errors[0]}}</span>
                     </div>
-                    <input type="text" class="form-control" id="email" v-model="email" >
+                    <input type="text" class="form-control" id="email" v-model="method" >
                 </div>
             </div>
             <div class="col-md-6">
@@ -38,7 +38,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend3">Naration</span>
                     </div>
-                    <input type="text" class="form-control" id="description" >
+                    <input type="text" class="form-control" id="description" v-model="description" >
                     <div class="invalid-feedback">
                         Please choose a Description.
                     </div>
@@ -60,30 +60,32 @@
       mixins: [VueDaval],
       data () {
         return {
-          email: '',
-          eCode: '',
-          fullName: '',
+          name: '',
+          type: '',
+          method: '',
+          description: '',
           errorMessage: false
         }
       },
       vdRules: {
-        email: {required: true, type: 'email', regexp: /\S+@\S+\.\S+/},
-        eCode: {required: true},
-        fullName: {required: true}
+        name: {required: true},
+        type: {required: true},
+        method: {required: true},
+        description: {required: false}
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         save: function () {
           const data = {
-            fullName: this.fullName,
-            description: this.description,
-            email: this.email,
-            eCode: this.eCode
+            name: this.name,
+            type: this.type,
+            method: this.method,
+            description: this.description
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees`, data, 'POST', function (data) {
+            SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types`, data, 'POST', function (data) {
               if (data.responseStatus === 'SUCCESS') {
                 alert(data.message)
                 this.$router.push('/listEmployeeDetails')

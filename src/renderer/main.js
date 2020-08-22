@@ -13,6 +13,12 @@ import Paginate from 'vuejs-paginate'
 import { FormDatepickerPlugin } from 'bootstrap-vue'
 import VueTimepicker from 'vue2-timepicker'
 import VModal from 'vue-js-modal'
+import VirtualList from '../renderer/components/accounting/accountInfo/fixed-size/src/index'
+import Introduction from '../renderer/components/accounting/accountInfo/fixed-size/Introduction'
+import CodeHighLight from '../renderer/components/accounting/accountInfo/fixed-size/CodeHighLight'
+import Corner from '../renderer/components/accounting/accountInfo/fixed-size/Corner'
+import Tab from '../renderer/components/accounting/accountInfo/fixed-size/Tab'
+// import GithubButton from 'vue-github-button'
 
 Vue.component(FormDatepickerPlugin)
 Vue.component('paginate', Paginate)
@@ -29,6 +35,11 @@ Vue.use(VModal, {
     width: 850
   }
 })
+Vue.component('virtual-list', VirtualList)
+Vue.component(Introduction.name, Introduction)
+Vue.component(CodeHighLight.name, CodeHighLight)
+Vue.component(Corner.name, Corner)
+Vue.component(Tab.name, Tab)
 // Vue.use(window.vuelidate.default)
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

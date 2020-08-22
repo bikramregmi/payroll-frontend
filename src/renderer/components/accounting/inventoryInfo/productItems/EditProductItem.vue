@@ -19,7 +19,7 @@
                     </div>
                     <select class="form-control" :required="true" v-model="productItemDetail.group">
                         <option :selected="true">Choose Groups</option>
-                        <option v-for="option in productItemList" v-bind:value="option.group" >{{ option.group }}</option>
+                        <option v-for="option in productItemList" v-bind:value="option.name" >{{ option.name }}</option>
                     </select>
                     <hr>
                     <button hidden v-shortkey="['ctrl','k']" @shortkey="show()" class="btn btn-primary"></button>
@@ -112,7 +112,7 @@
       },
       methods: {
         cancel: function () {
-          this.$modal.hideAll()
+          this.$emit('close')
         },
         retriveProductGroups: function (id) {
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-items/${id}`, '', 'GET', function (data) {
@@ -124,7 +124,7 @@
           }.bind(this))
         },
         retriveProductGroup: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-items`, '', 'GET', function (data) {
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups`, '', 'GET', function (data) {
             if (data) {
               this.productItemList = data
             } else {
@@ -132,11 +132,11 @@
             }
           }.bind(this))
         },
-        save: function (id) {
+        save: function () {
           const data = {
-            id: id,
+            id: this.id,
             name: this.productItemDetail.name,
-            group: this.productItemDetail.description,
+            group: this.productItemDetail.group,
             quantityPerRate: this.productItemDetail.quantityPerRate,
             units: this.productItemDetail.units,
             rate: this.productItemDetail.rate,
