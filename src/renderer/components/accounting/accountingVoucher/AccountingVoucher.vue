@@ -83,7 +83,8 @@
                     <div class="example-content">
                         <div class="row">
                             <div class="col-md-4">
-                                <h6>Ref No: </h6>
+                                <h6 v-show="showSales">Ref No: </h6>
+                                <h6 v-show="showBuy">Invoice No: </h6>
                                 <input type="text" class="form-control" id="sheet-class" v-model="referenceNumber"
                                        aria-describedby="referenceNumber">
                             </div>
@@ -93,7 +94,8 @@
                                        aria-describedby="currentBalance">
                             </div>
                             <div class="col-md-4">
-                                <h6 class="card-title">Sales Ledger: </h6>
+                                <h6 v-show="showSales" class="card-title">Sales Ledger: </h6>
+                                <h6 v-show="showBuy" class="card-title">Purchase Ledger: </h6>
                                 <input type="text" class="form-control" id="sheet-class" v-model="types.id"
                                        aria-describedby="salesLedger">
                             </div>
@@ -143,6 +145,7 @@
                                                                 v-model="types.id" hidden>
                                         <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
                                             <input style="padding-right: 6px;" type="text" class="form-control" id=""
+
                                                    disabled
                                                    v-model="index">
                                         </div>
@@ -444,18 +447,6 @@
         window.addEventListener('resize', () => {
           this.windowHeight = window.innerHeight
         })
-        /* const TOTAL_COUNT = 10
-                        let count = TOTAL_COUNT
-                        while (count--) {
-                          const index = TOTAL_COUNT - count
-                          DataItems.push({
-                            index,
-                            total: {
-                              referenceNumber: this.referenceNumber
-                            },
-                            checked: false
-                          })
-                        } */
       },
       methods: {
         calculateAmount: function (quantity, rate, index) {
@@ -471,7 +462,6 @@
           }
         },
         onChange (i, q, r, a, uk, rn) {
-          alert(uk)
           const item = {
             id: this.types.id,
             amount: q * r,
@@ -479,7 +469,13 @@
             quantity: q,
             rate: r,
             uniqueKey: uk,
-            referenceNumber: rn
+            referenceNumber: rn,
+            voucherType: ''
+          }
+          if (this.showSales === true) {
+            item.voucherType = 'Sales'
+          } else if (this.showBuy === true) {
+            item.voucherType = 'Buy'
           }
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
@@ -501,12 +497,18 @@
             salesLedger: this.salesLedger,
             grandTotal: this.types.salesVoucherTypeTotalDTO.amountTotal,
             narration: this.narration,
-            accountingVoucherType: 'Sales'
+            accountingVoucherType: ''
+          }
+          if (this.showSales === true) {
+            item.accountingVoucherType = 'Sales'
+          } else if (this.showBuy === true) {
+            item.accountingVoucherType = 'Buy'
           }
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/accounting-vouchers`, item, 'POST', function (data) {
             if (data) {
               this.accountingVoucerDetail = data
-              this.show = true
+              this
+                .this.show = true
             } else {
               this.accountingVoucerDetail = 'Error Fetching Data'
             }
@@ -589,27 +591,6 @@
             margin-left: 1em;
             cursor: pointer;
             user-select: none;
-        }
-
-        .checkbox {
-            text-align: center;
-            width: 30px;
-            height: 30px;
-            border: none;
-            outline: none;
-            appearance: none;
-            margin: 0;
-        }
-
-        .checkbox {
-            background-color: #fff;
-            background-repeat: no-repeat;
-            background-position: center left;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='-10 -18 100 135'%3E%3Ccircle cx='50' cy='50' r='50' fill='none' stroke='%23ededed' stroke-width='3'/%3E%3C/svg%3E");
-        }
-
-        .checkbox:checked {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='-10 -18 100 135'%3E%3Ccircle cx='50' cy='50' r='50' fill='none' stroke='%23c28ce2' stroke-width='3'/%3E%3Cpath fill='%239b4dca' d='M72 25L42 71 27 56l-4 4 20 20 34-52z'/%3E%3C/svg%3E");
         }
     }
 </style>
