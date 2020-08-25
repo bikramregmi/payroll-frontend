@@ -9,7 +9,10 @@
             <div class="card-body-custom">
                 <div class="col-md-4">
                     <h6 style="width:200px;margin-top: 5px;" class="card-title"><b><u >Shortcut Keys</u></b></h6>
-                    <h6 style="color: black;width:170px;">Press Esc to Cancel</h6>
+                    <h6 style="color: black;width:170px;"><u>f1</u>: Company</h6>
+                    <h6 style="color: black;width:170px;"><u>f2</u>: Accounting Voucher</h6>
+                    <h6 style="color: black;width:170px;"><u>f3</u>: Inventory Voucher</h6>
+
                 </div>
             </div>
         </div>

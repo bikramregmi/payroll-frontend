@@ -5,7 +5,8 @@
         </h5>
         <hr>
         <div style="margin-top: 50px;margin-left:100px;" v-show="!show">
-            <h6 class="card-title"><b> Accounting Voucher </b></h6>
+            <h6 class="card-title"><b> Accounting Voucher
+            </b></h6>
             <h6 class="card-title"><b> Shortcut Keys ( Alt + Starting Letter) </b></h6>
             <h6 class="card-title"><b> Alt + s-> Sales </b></h6>
             <h6 class="card-title"><b> Alt + b-> Buys </b></h6>
@@ -18,61 +19,93 @@
             <h6 class="card-title"><b> Accounting Voucher For Type {{formName}}</b></h6>
             <!--            for payment, Receipt, Contra-->
             <div v-show="showPForm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-3" style="padding-right: 0px;">
-                                <h6 class="card-title"><b>Account</b></h6>
-                            </div>
-                            <div class="col-md-9" style="padding-left: 0px;">
-                                <input style="padding: 0;height: 9px;" type="text" class="form-control" id="accountName"
-                                       v-model="accountName"
-                                       aria-describedby="accountName">
+                <div class="example-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>Account: </h6>
+                            <input type="text" class="form-control" id="sheet-class" v-model="referenceNumber"
+                                   aria-describedby="referenceNumber">
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="card-title">Current Balance: </h6>
+                            <input type="text" class="form-control" id="sheet-class" v-model="currentBalance"
+                                   aria-describedby="currentBalance">
+                        </div>
+                    </div>
+                    <div class="row" v-if="windowHeight>600">
+                        <div class="col-md-1">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Particulars</b></h6>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="card-title"><b>Amount</b></h6>
+                        </div>
+                    </div>
+                    <div class="row" v-else>
+                        <div class="col-md-1">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Particulars</b></h6>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="card-title"><b>Amount</b></h6>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="list-keep scroll-touch" style="height: 200px;width:700px;"
+                             :data-key="'id'"
+                             :estimate-size="100"
+                             :item-class="'list-item-keep'">
+                            <div class="item-inner" v-for="(item,index) in 20" :set="index=index+1">
+                                <div class="row">
+                                    <input type="text" class="form-control"
+                                           v-model="types.id" hidden>
+                                    <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
+                                        <input style="padding-right: 6px;" type="text" class="form-control" id=""
+                                               disabled v-model="index">
+                                    </div>
+                                    <div class="col-md-7" id="padding">
+                                        <input type="text" class="form-control"
+                                               @change="clearSomeValue(salesVoucherTypes[index].item,salesVoucherTypes[index].amount)"
+                                               v-model="salesVoucherTypes[index].item"
+                                               aria-describedby="currentBalance">
+                                    </div>
+                                    <div class="col-md-4" id="padding">
+                                        <input type="text" class="form-control"
+                                               id="amount"
+                                               @change="onSomeChange(salesVoucherTypes[index].item,'','','', salesVoucherTypes[index].amount,index,referenceNumber)"
+                                               v-model="salesVoucherTypes[index].amount"
+                                               aria-describedby="amount">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <h6 class="card-title"><b>Current Balance:</b></h6>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <h6 class="card-title"><u><b>Particulars</b></u></h6>
+                    <div class="col-md-4">
+                        <span style="color: black;" class="form-group">Narration</span>
+                        <textarea cols="4" type="text" class="form-control" v-model="narration"
+                                  aria-describedby="narration"></textarea>
                     </div>
-                    <div class="col-md-6">
-                        <h6 style="margin-left: 100px;" class="card-title"><u><b>Amount</b></u></h6>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input id="sheet-class" type="text" class="form-control" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
+
+                    <div style="margin-left: 50px;" class="col-md-6">
+                        <div v-show="show">
+                            <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.quantityTotal}}</span>
+                            <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.rateTotal}}</span>
+                            <span style="margin-left: 60px;background-color: #4fc08d;width:150px;">{{types.salesVoucherTypeTotalDTO.amountTotal}}</span>
+                            <input style="padding: 0px;width:454px;" type="text" class="form-control" id=""
+                                   v-model="types.salesVoucherTypeTotalDTO.amountTotal" hidden
+                                   aria-describedby="currentBalance">
+                        </div>
+                        <br>
+                        <button style="margin-left: 150px;" @click="save()" type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button @click="cancel()" type="submit" class="btn btn-primary">Exit</button>
                     </div>
                 </div>
             </div>
@@ -141,37 +174,39 @@
                                  :item-class="'list-item-keep'">
                                 <div class="item-inner" v-for="(item,index) in 20" :set="index=index+1">
                                     <div class="row">
-                                          <input type="text" class="form-control"
-                                                                v-model="types.id" hidden>
+                                        <input type="text" class="form-control"
+                                               v-model="types.id" hidden>
                                         <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
                                             <input style="padding-right: 6px;" type="text" class="form-control" id=""
 
                                                    disabled
                                                    v-model="index">
                                         </div>
-                                        <div class="col-md-5" style="padding: 0px;">
-                                            <input style="padding: 0px;width:392px;" type="text" class="form-control" value="index"
+                                        <div class="col-md-5" id="padding">
+                                            <input type="text" class="form-control"
+                                                   value="index"
                                                    v-model="salesVoucherTypes[index].uniqueKey" hidden>
-                                            <input style="padding: 0px;width:392px;" type="text" class="form-control"
-                                                   id="" @change="clearValue(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount)"
+                                            <input type="text" class="form-control"
+                                                   id=""
+                                                   @change="clearValue(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount)"
                                                    v-model="salesVoucherTypes[index].item"
                                                    aria-describedby="currentBalance">
                                         </div>
-                                        <div class="col-md-2">
-                                            <input style="padding: 0px;width:149px;" type="text" class="form-control"
+                                        <div class="col-md-2" id="padding">
+                                            <input type="text" class="form-control"
                                                    id="quantity"
                                                    v-model="salesVoucherTypes[index].quantity"
                                                    aria-describedby="currentBalance">
                                         </div>
-                                        <div class="col-md-2">
-                                            <input style="padding: 0px;width:150px" type="text" class="form-control"
+                                        <div class="col-md-2" id="padding">
+                                            <input type="text" class="form-control"
                                                    id="rate"
                                                    v-model="salesVoucherTypes[index].rate"
                                                    aria-describedby="currentBalance"
                                                    @keyup="calculateAmount(salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,index)">
                                         </div>
-                                        <div class="col-md-2">
-                                            <input style="padding: 0px;" type="text" class="form-control" id="amount"
+                                        <div class="col-md-2" id="padding">
+                                            <input type="text" class="form-control" id="amount"
                                                    @keyup="onChange(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount,index,referenceNumber)"
                                                    v-model="salesVoucherTypes[index].amount"
                                                    aria-describedby="currentBalance">
@@ -208,60 +243,126 @@
             </div>
             <!--            start of journal-->
             <div v-show="showJForm">
+                <div class="example-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>No: </h6>
+                            <input type="text" class="form-control" id="sheet-class" v-model="referenceNumber"
+                                   aria-describedby="referenceNumber">
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="card-title">Date: </h6>
+                            <input type="text" class="form-control" id="sheet-class" v-model="currentBalance"
+                                   aria-describedby="currentBalance">
+                        </div>
+                    </div>
+                    <div class="row" v-if="windowHeight>600">
+                        <div class="col-md-1">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
+                        </div>
+                        <div class="col-md-5">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Particulars</b></h6>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="card-title"><b>Debit</b></h6>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="card-title"><b>Credit</b></h6>
+                        </div>
+                    </div>
+                    <div class="row" v-else>
+                        <div class="col-md-1">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Sn</b></h6>
+                        </div>
+                        <div class="col-md-5">
+                            <h6 style="margin-left: 10px;" class="card-title"><b>Particulars</b></h6>
+                        </div>
+                        <div class="col-md-3" >
+                            <h6 style="margin-left: 50px;" class="card-title"><b>Debit</b></h6>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="card-title"><b>Credit</b></h6>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="list-keep scroll-touch" style="height: 200px;width:700px;"
+                             :data-key="'id'"
+                             :estimate-size="100"
+                             :item-class="'list-item-keep'">
+                            <div class="item-inner" v-for="(item,index) in 20" :set="index=index+1">
+                                <div class="row">
+                                    <input type="text" class="form-control"
+                                           v-model="types.id" hidden>
+                                    <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
+                                        <input style="padding-right: 6px;" type="text" class="form-control" id=""
+                                               disabled v-model="index">
+                                    </div>
+                                    <div class="col-md-7" id="padding">
+                                        <input type="text" class="form-control"
+                                               id=""
+                                               @change="clearSomeValue(salesVoucherTypes[index].item,salesVoucherTypes[index].debit)"
+                                               v-model="salesVoucherTypes[index].item"
+                                               aria-describedby="currentBalance">
+                                    </div>
+                                    <div class="col-md-2" id="padding">
+                                        <input type="text" class="form-control"
+                                               id="debit"
+                                               @change="onSomeChange(salesVoucherTypes[index].item,currentBalance,salesVoucherTypes[index].debit,salesVoucherTypes[index].credit,'',index,referenceNumber)"
+                                               v-model="salesVoucherTypes[index].debit"
+                                               aria-describedby="debit">
+                                    </div>
+                                    <div class="col-md-2" id="padding">
+                                        <input type="text" class="form-control"
+                                               id="credit"
+                                               @change="onSomeChange(salesVoucherTypes[index].item,currentBalance,salesVoucherTypes[index].debit,salesVoucherTypes[index].credit,'',index,referenceNumber)"
+                                               v-model="salesVoucherTypes[index].credit"
+                                               aria-describedby="credit">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h6 class="card-title"><u><b>Particulars</b></u></h6>
+                        <span style="color: black;" class="form-group">Narration</span>
+                        <textarea cols="4" type="text" class="form-control" v-model="narration"
+                                  aria-describedby="narration"></textarea>
                     </div>
-                    <div class="col-md-4">
-                        <h6 style="margin-left: 100px;" class="card-title"><u><b>Debit</b></u></h6>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 style="margin-left: 100px;" class="card-title"><u><b>Credit</b></u></h6>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="sheet-class" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <input id="sheet-class" type="text" class="form-control" v-model="particulars"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
-                        <input type="text" class="form-control" id="currentBalance" v-model="amount"
-                               aria-describedby="currentBalance">
+
+                    <div style="margin-left: 50px;" class="col-md-6">
+                        <div v-show="show">
+                            <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.quantityTotal}}</span>
+                            <span style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.rateTotal}}</span>
+                            <span style="margin-left: 60px;background-color: #4fc08d;width:150px;">{{types.salesVoucherTypeTotalDTO.amountTotal}}</span>
+                            <input style="padding: 0px;width:454px;" type="text" class="form-control" id=""
+                                   v-model="types.salesVoucherTypeTotalDTO.amountTotal" hidden
+                                   aria-describedby="currentBalance">
+                        </div>
+                        <div v-show="showJournal">
+                            <span v-show="types.salesVoucherTypeTotalDTO.debitTotal" style="margin-left: 180px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.debitTotal}}</span>
+                            <span v-show="!types.salesVoucherTypeTotalDTO.debitTotal" style="margin-left: 180px;background-color: #4fc08d;width:50px;">0</span>
+                            <span v-show="types.salesVoucherTypeTotalDTO.creditTotal" style="margin-left: 80px;background-color: #4fc08d;width:50px;">{{types.salesVoucherTypeTotalDTO.creditTotal}}</span>
+                            <span v-show="!types.salesVoucherTypeTotalDTO.creditTotal" style="margin-left: 80px;background-color: #4fc08d;width:50px;">0</span>
+                            <input style="padding: 0px;width:454px;" type="text" class="form-control" id=""
+                                   v-model="types.salesVoucherTypeTotalDTO.debitTotal" hidden
+                                   aria-describedby="debitTotal">
+                            <input style="padding: 0px;width:454px;" type="text" class="form-control" id=""
+                                   v-model="types.salesVoucherTypeTotalDTO.creditTotal" hidden
+                                   aria-describedby="creditTotal">
+                        </div>
+
+                        <br>
+                        <button style="margin-left: 150px;" @click="save()" type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button @click="cancel()" type="submit" class="btn btn-primary">Exit</button>
                     </div>
                 </div>
             </div>
             <!--            end of journal-->
         </div>
+        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>
     </div>
 </template>
 
@@ -283,140 +384,186 @@
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }, {
             amount: '',
             item: '',
             quantity: '',
             rate: '',
-            uniqueKey: ''
+            uniqueKey: '',
+            debit: '',
+            credit: ''
           }],
           types: {
             id: '',
             salesVoucherTypeTotalDTO: {
               quantityTotal: '',
               rateTotal: '',
-              amountTotal: ''
+              amountTotal: '',
+              debitTotal: '',
+              creditTotal: ''
             }
           },
           referenceNumber: '',
@@ -433,7 +580,11 @@
           showSForm: false,
           showJForm: false,
           showSales: false,
-          showBuy: false
+          showBuy: false,
+          showPayment: false,
+          showReceipt: false,
+          showContra: false,
+          showJournal: false
         }
       },
       vdRules: {
@@ -458,6 +609,11 @@
           if (item != null && quantity === '' && rate === '' && amount === '') {
             this.types.id = ''
           } else if (quantity != null && item === '' && rate === '' && amount === '') {
+            this.types.id = ''
+          }
+        },
+        clearSomeValue: function (particulars, amount) {
+          if (particulars != null && amount === '') {
             this.types.id = ''
           }
         },
@@ -487,6 +643,42 @@
             this.$forceUpdate()
           }.bind(this))
         },
+        onSomeChange (p, d, de, cr, a, uk, rn) {
+          alert('45678ghj')
+          const item = {
+            id: this.types.id,
+            item: p,
+            extraField: d,
+            debit: de,
+            credit: cr,
+            amount: a,
+            uniqueKey: uk,
+            referenceNumber: rn,
+            voucherType: ''
+          }
+          if (this.showPayment === true) {
+            item.voucherType = 'Payment'
+          } else if (this.showReceipt === true) {
+            item.voucherType = 'Receipt'
+          } else if (this.showContra === true) {
+            item.voucherType = 'Contra'
+          } else {
+            item.voucherType = 'Journal'
+          }
+          SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
+            if (data) {
+              this.types = data
+              if (data.voucherType === 'Journal') {
+                this.showJournal = true
+              } else {
+                this.show = true
+              }
+            } else {
+              this.types = 'Error Fetching Data'
+            }
+            this.$forceUpdate()
+          }.bind(this))
+        },
         cancel: function () {
           this.$emit('close')
         },
@@ -496,6 +688,8 @@
             currentBalance: this.currentBalance,
             salesLedger: this.salesLedger,
             grandTotal: this.types.salesVoucherTypeTotalDTO.amountTotal,
+            creditTotal: this.types.salesVoucherTypeTotalDTO.creditTotal,
+            debitTotal: this.types.salesVoucherTypeTotalDTO.debitTotal,
             narration: this.narration,
             accountingVoucherType: ''
           }
@@ -503,12 +697,20 @@
             item.accountingVoucherType = 'Sales'
           } else if (this.showBuy === true) {
             item.accountingVoucherType = 'Buy'
+          } else if (this.showReceipt === true) {
+            item.accountingVoucherType = 'Receipt'
+          } else if (this.showPayment === true) {
+            item.accountingVoucherType = 'Payment'
+          } else if (this.showContra === true) {
+            item.accountingVoucherType = 'Contra'
+          } else {
+            item.accountingVoucherType = 'Journal'
           }
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/accounting-vouchers`, item, 'POST', function (data) {
             if (data) {
               this.accountingVoucerDetail = data
-              this
-                .this.show = true
+              // this.this.show = true
+              this.$emit('close')
             } else {
               this.accountingVoucerDetail = 'Error Fetching Data'
             }
@@ -530,6 +732,25 @@
           this.show = true
           this.formName = data
           if (data === 'Payment' || data === 'Receipt' || data === 'Contra') {
+            if (data === 'Payment') {
+              this.showPayment = true
+              this.showReceipt = false
+              this.showContra = false
+              this.showBuy = false
+              this.showSales = false
+            } else if (data === 'Receipt') {
+              this.showPayment = false
+              this.showReceipt = true
+              this.showContra = false
+              this.showBuy = false
+              this.showSales = false
+            } else {
+              this.showPayment = false
+              this.showReceipt = false
+              this.showContra = true
+              this.showBuy = false
+              this.showSales = false
+            }
             this.showPForm = true
             this.showSForm = false
             this.showJForm = false
@@ -537,9 +758,15 @@
             if (data === 'Sales') {
               this.showSales = true
               this.showBuy = false
+              this.showReceipt = false
+              this.showContra = false
+              this.showPayment = false
             } else {
               this.showBuy = true
               this.showSales = false
+              this.showReceipt = false
+              this.showContra = false
+              this.showPayment = false
             }
             this.showSForm = true
             this.showJForm = false

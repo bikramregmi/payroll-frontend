@@ -50,6 +50,13 @@
                 </div>
             </div>
         </div>
+<!--        shortcut keys-->
+        <button hidden v-shortkey="['alt','f1']" @shortkey="addCompany()"></button>
+        <button hidden v-shortkey="['alt','f2']" @shortkey="openAccountingVoucher()"></button>
+<!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
+<!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
+<!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
+
     </div>
 </template>
 
@@ -87,7 +94,7 @@
               text: 'Company',
               menu: [
                 {
-                  text: 'Create Company', click: () => this.$router.push('/addCompany')
+                  text: 'Create Company', click: () => this.addCompany()
                 },
                 {
                   text: 'Select Company',
@@ -146,9 +153,7 @@
               menu: [
                 {
                   text: 'Acc Voucher',
-                  click: () => this.$modal.show(AccountingVoucher,
-                    {text: 'This text is passed as a property'},
-                    {draggable: true})
+                  click: () => this.openAccountingVoucher()
                 },
                 {
                   text: 'Inv Voucher',
@@ -227,9 +232,14 @@
               {draggable: true})
           }
         },
-        /*  hide: function () {
-              this.$modal.hide('my-first-modal')
-            }, */
+        addCompany: function () {
+          this.$router.push('/addCompany')
+        },
+        openAccountingVoucher: function () {
+          this.$modal.show(AccountingVoucher,
+            {text: 'This text is passed as a property'},
+            {draggable: true})
+        },
         retrieveCompany: function (id) {
           SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'GET', function (data) {
             this.checkCompany = data
