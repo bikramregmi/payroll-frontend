@@ -3,17 +3,17 @@
         <div class="item-inner">
             <!--            <div class="row" v-for="(item,index) in page">-->
             <div class="input-group"><p style="color: red;">{{source.narration}}{{source.referenceNumber}}{{source.salesLedger}}{{source.currentBalance}}</p>
-                <input type="text" class="form-control" id="sheet-class" v-model="salesVoucherTypes.item"
+                <input type="text" class="form-control" id="sheet-class" v-model="inventoryVouchers.item"
                        aria-describedby="currentBalance">
-                <input type="text" class="form-control" id="quantity" v-model="salesVoucherTypes.quantity"
+                <input type="text" class="form-control" id="quantity" v-model="inventoryVouchers.quantity"
                        aria-describedby="currentBalance">
-                <input type="text" class="form-control" id="rate" v-model="salesVoucherTypes.rate"
+                <input type="text" class="form-control" id="rate" v-model="inventoryVouchers.rate"
                        aria-describedby="currentBalance">
                 <input type="text" class="form-control" id="amount"
-                       @change="onChange(salesVoucherTypes.item,salesVoucherTypes.quantity,salesVoucherTypes.rate,salesVoucherTypes.amount,source.name)"
-                       v-model="salesVoucherTypes.amount"
+                       @change="onChange(inventoryVouchers.item,inventoryVouchers.quantity,inventoryVouchers.rate,inventoryVouchers.amount,source.name)"
+                       v-model="inventoryVouchers.amount"
                        aria-describedby="currentBalance">
-                <!--                    <button @click="test(salesVoucherTypes.amount)">click</button>-->
+                <!--                    <button @click="test(inventoryVouchers.amount)">click</button>-->
                 <!--                </div>-->
             </div>
             <!--            <input class="text" @change="onChange" type="text"/>-->
@@ -40,7 +40,7 @@
           items: DataItems,
           itemComponent: Main,
           // page: [1, 2, 3, 4, 5, 6, 7, 8],
-          salesVoucherTypes: {
+          inventoryVouchers: {
             amount: '',
             item: '',
             quantity: '',

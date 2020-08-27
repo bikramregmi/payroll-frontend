@@ -53,7 +53,7 @@
 <!--        shortcut keys-->
         <button hidden v-shortkey="['alt','f1']" @shortkey="addCompany()"></button>
         <button hidden v-shortkey="['alt','f2']" @shortkey="openAccountingVoucher()"></button>
-<!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
+        <button hidden v-shortkey="['alt','f3']" @shortkey="openInventoryVoucher()"></button>
 <!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
 <!--        <button hidden v-shortkey="['esc']" @shortkey="cancel()"></button>-->
 
@@ -72,6 +72,7 @@
     import ListProductItem from './inventoryInfo/productItems/ListProductItem'
     import ListUnitMeasures from './inventoryInfo/unitMeasures/ListUnitMeasure'
     import AccountingVoucher from '../accounting/accountingVoucher/AccountingVoucher'
+    import InventoryVoucher from '../accounting/inventoryVoucher/InventoryVoucher'
 
     export default {
       name: 'WelcomePage',
@@ -157,9 +158,7 @@
                 },
                 {
                   text: 'Inv Voucher',
-                  click: () => {
-                    this.$router.push('/listCompany')
-                  }
+                  click: () => this.openInventoryVoucher()
                 }
               ]
             },
@@ -238,6 +237,10 @@
         openAccountingVoucher: function () {
           this.$modal.show(AccountingVoucher,
             {text: 'This text is passed as a property'},
+            {draggable: true})
+        },
+        openInventoryVoucher: function () {
+          this.$modal.show(InventoryVoucher,
             {draggable: true})
         },
         retrieveCompany: function (id) {

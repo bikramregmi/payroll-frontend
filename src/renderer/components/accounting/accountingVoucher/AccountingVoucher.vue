@@ -69,15 +69,15 @@
                                     </div>
                                     <div class="col-md-7" id="padding">
                                         <input type="text" class="form-control"
-                                               @change="clearSomeValue(salesVoucherTypes[index].item,salesVoucherTypes[index].amount)"
-                                               v-model="salesVoucherTypes[index].item"
+                                               @change="clearSomeValue(inventoryVouchers[index].item,inventoryVouchers[index].amount)"
+                                               v-model="inventoryVouchers[index].item"
                                                aria-describedby="currentBalance">
                                     </div>
                                     <div class="col-md-4" id="padding">
                                         <input type="text" class="form-control"
                                                id="amount"
-                                               @change="onSomeChange(salesVoucherTypes[index].item,'','','', salesVoucherTypes[index].amount,index,referenceNumber)"
-                                               v-model="salesVoucherTypes[index].amount"
+                                               @change="onSomeChange(inventoryVouchers[index].item,'','','', inventoryVouchers[index].amount,index,referenceNumber)"
+                                               v-model="inventoryVouchers[index].amount"
                                                aria-describedby="amount">
                                     </div>
                                 </div>
@@ -126,12 +126,6 @@
                                 <input type="text" class="form-control" id="sheet-class" v-model="currentBalance"
                                        aria-describedby="currentBalance">
                             </div>
-                            <div class="col-md-4">
-                                <h6 v-show="showSales" class="card-title">Sales Ledger: </h6>
-                                <h6 v-show="showBuy" class="card-title">Purchase Ledger: </h6>
-                                <input type="text" class="form-control" id="sheet-class" v-model="types.id"
-                                       aria-describedby="salesLedger">
-                            </div>
                         </div>
                         <div class="row" v-if="windowHeight>600">
                             <div class="col-md-1">
@@ -178,37 +172,35 @@
                                                v-model="types.id" hidden>
                                         <div class="col-md-1" style="color: #6a6a6a;padding-right: 0px;">
                                             <input style="padding-right: 6px;" type="text" class="form-control" id=""
-
                                                    disabled
                                                    v-model="index">
                                         </div>
                                         <div class="col-md-5" id="padding">
                                             <input type="text" class="form-control"
                                                    value="index"
-                                                   v-model="salesVoucherTypes[index].uniqueKey" hidden>
+                                                   v-model="inventoryVouchers[index].uniqueKey" hidden>
                                             <input type="text" class="form-control"
                                                    id=""
-                                                   @change="clearValue(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount)"
-                                                   v-model="salesVoucherTypes[index].item"
+                                                   @change="clearValue(inventoryVouchers[index].item,inventoryVouchers[index].quantity,inventoryVouchers[index].rate,inventoryVouchers[index].amount)"
+                                                   v-model="inventoryVouchers[index].item"
                                                    aria-describedby="currentBalance">
                                         </div>
                                         <div class="col-md-2" id="padding">
                                             <input type="text" class="form-control"
                                                    id="quantity"
-                                                   v-model="salesVoucherTypes[index].quantity"
+                                                   v-model="inventoryVouchers[index].quantity"
                                                    aria-describedby="currentBalance">
                                         </div>
                                         <div class="col-md-2" id="padding">
                                             <input type="text" class="form-control"
                                                    id="rate"
-                                                   v-model="salesVoucherTypes[index].rate"
-                                                   aria-describedby="currentBalance"
-                                                   @keyup="calculateAmount(salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,index)">
+                                                   v-model="inventoryVouchers[index].rate"
+                                                   aria-describedby="currentBalance">
                                         </div>
                                         <div class="col-md-2" id="padding">
                                             <input type="text" class="form-control" id="amount"
-                                                   @keyup="onChange(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount,index,referenceNumber)"
-                                                   v-model="salesVoucherTypes[index].amount"
+                                                   @keyup="onChange(inventoryVouchers[index].item,inventoryVouchers[index].quantity,inventoryVouchers[index].rate,inventoryVouchers[index].amount,index,referenceNumber)"
+                                                   v-model="inventoryVouchers[index].amount"
                                                    aria-describedby="currentBalance">
                                         </div>
                                     </div>
@@ -300,22 +292,22 @@
                                     <div class="col-md-7" id="padding">
                                         <input type="text" class="form-control"
                                                id=""
-                                               @change="clearSomeValue(salesVoucherTypes[index].item,salesVoucherTypes[index].debit)"
-                                               v-model="salesVoucherTypes[index].item"
+                                               @change="clearSomeValue(inventoryVouchers[index].item,inventoryVouchers[index].debit)"
+                                               v-model="inventoryVouchers[index].item"
                                                aria-describedby="currentBalance">
                                     </div>
                                     <div class="col-md-2" id="padding">
                                         <input type="text" class="form-control"
                                                id="debit"
-                                               @change="onSomeChange(salesVoucherTypes[index].item,currentBalance,salesVoucherTypes[index].debit,salesVoucherTypes[index].credit,'',index,referenceNumber)"
-                                               v-model="salesVoucherTypes[index].debit"
+                                               @change="onSomeChange(inventoryVouchers[index].item,currentBalance,inventoryVouchers[index].debit,inventoryVouchers[index].credit,'',index,referenceNumber)"
+                                               v-model="inventoryVouchers[index].debit"
                                                aria-describedby="debit">
                                     </div>
                                     <div class="col-md-2" id="padding">
                                         <input type="text" class="form-control"
                                                id="credit"
-                                               @change="onSomeChange(salesVoucherTypes[index].item,currentBalance,salesVoucherTypes[index].debit,salesVoucherTypes[index].credit,'',index,referenceNumber)"
-                                               v-model="salesVoucherTypes[index].credit"
+                                               @change="onSomeChange(inventoryVouchers[index].item,currentBalance,inventoryVouchers[index].debit,inventoryVouchers[index].credit,'',index,referenceNumber)"
+                                               v-model="inventoryVouchers[index].credit"
                                                aria-describedby="credit">
                                     </div>
                                 </div>
@@ -379,7 +371,7 @@
           accountingVoucerDetail: '',
           windowHeight: '',
           type: '',
-          salesVoucherTypes: [{
+          inventoryVouchers: [{
             amount: '',
             item: '',
             quantity: '',
@@ -602,7 +594,7 @@
       methods: {
         calculateAmount: function (quantity, rate, index) {
           if (rate != null) {
-            this.salesVoucherTypes[index].amount = quantity * rate
+            this.inventoryVouchers[index].amount = quantity * rate
           }
         },
         clearValue: function (item, quantity, rate, amount) {

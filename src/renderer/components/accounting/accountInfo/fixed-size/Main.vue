@@ -67,23 +67,23 @@
                             </div>
                             <div class="col-md-5" style="padding: 0px;">
                                 <input style="padding: 0px;width:392px;" type="text" class="form-control" id=""
-                                       v-model="salesVoucherTypes[index].item"
+                                       v-model="inventoryVouchers[index].item"
                                        aria-describedby="currentBalance">
                             </div>
                             <div class="col-md-2">
                                 <input style="padding: 0px;width:149px;" type="text" class="form-control" id="quantity"
-                                       v-model="salesVoucherTypes[index].quantity"
+                                       v-model="inventoryVouchers[index].quantity"
                                        aria-describedby="currentBalance">
                             </div>
                             <div class="col-md-2">
                                 <input style="padding: 0px;width:150px" type="text" class="form-control" id="rate"
-                                       v-model="salesVoucherTypes[index].rate"
+                                       v-model="inventoryVouchers[index].rate"
                                        aria-describedby="currentBalance">
                             </div>
                             <div class="col-md-2">
                                 <input style="padding: 0px;" type="text" class="form-control" id="amount"
-                                       @change="onChange(salesVoucherTypes[index].item,salesVoucherTypes[index].quantity,salesVoucherTypes[index].rate,salesVoucherTypes[index].amount,referenceNumber)"
-                                       v-model="salesVoucherTypes[index].amount"
+                                       @change="onChange(inventoryVouchers[index].item,inventoryVouchers[index].quantity,inventoryVouchers[index].rate,inventoryVouchers[index].amount,referenceNumber)"
+                                       v-model="inventoryVouchers[index].amount"
                                        aria-describedby="currentBalance">
                             </div>
                         </div>
@@ -139,7 +139,7 @@
           itemComponent: Item,
           accountingVoucerDetail: '',
           windowHeight: '',
-          salesVoucherTypes: [{
+          inventoryVouchers: [{
             amount: '',
             item: '',
             quantity: '',
