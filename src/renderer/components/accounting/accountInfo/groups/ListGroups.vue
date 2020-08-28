@@ -54,7 +54,8 @@
     import Groups from '../../accountInfo/groups/AddGroups'
     import SH from '../../../../backend/backend'
     import EditGroups from '../../accountInfo/groups/EditGroups'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'ListGroups',
       data () {
         return {
@@ -79,7 +80,7 @@
             {draggable: true})
         },
         deleteItem: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/groups/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `groups/${id}`, '', 'DELETE', function (data) {
             alert('Deleted Successfully')
             this.cancel()
           }.bind(this))
@@ -94,7 +95,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/groups?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `groups?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             if (data) {
               this.groups = data
             } else {

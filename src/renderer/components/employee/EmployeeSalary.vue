@@ -114,8 +114,9 @@
 <script>
     import SH from '../../backend/backend'
     import VueDaval from 'vue-daval'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'EmployeeSalary',
       mixins: [VueDaval],
       data () {
@@ -158,11 +159,11 @@
           }
           this.$vd.employeeSalary.$validate().then(() => {
             if (updatedData.id == null) {
-              SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries`, updatedData, 'POST', function (data) {
+              SH.ajax.callRemote(baseApiUrl + `employee-salaries`, updatedData, 'POST', function (data) {
                 this.$router.push('/listEmployeeDetails')
               }.bind(this))
             } else {
-              SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries`, updatedData, 'PUT', function (data) {
+              SH.ajax.callRemote(baseApiUrl + `employee-salaries`, updatedData, 'PUT', function (data) {
                 this.employee = data
                 this.$router.push('/listEmployeeDetails')
               }.bind(this))
@@ -174,7 +175,7 @@
           this.$forceUpdate()
         },
         getUpdatedSalary: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employee-salaries/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `employee-salaries/${id}`, '', 'GET', function (data) {
             this.employeeSalary = data
           }.bind(this))
           this.$forceUpdate()

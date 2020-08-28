@@ -17,6 +17,7 @@ import ADashboard from '../components/accounting/Dashboard'
 import AddCompany from '../components/accounting/company/AddCompany'
 import ListCompany from '../components/accounting/company/ListCompany'
 import MainPage from '../components/accounting/accountInfo/fixed-size/Main'
+import Calculator from '../components/calculator/Calculator'
 
 Vue.use(Router)
 
@@ -94,6 +95,10 @@ export default new Router({
         path: '/listCompany',
         name: 'listCompany',
         component: ListCompany
+      }, {
+        path: '/calculator',
+        name: 'calculator',
+        component: Calculator
       }, {
         path: '/entries',
         name: 'entries',

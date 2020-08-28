@@ -119,8 +119,9 @@
     import Item from './Item'
     import genUniqueId from '../../common/gen-unique-id'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    const DataItems = []
+const DataItems = []
 
     export default {
       name: 'keep-state',
@@ -289,7 +290,7 @@
             rate: r,
             referenceNumber: rn
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
               this.types = data
               this.show = true
@@ -307,7 +308,7 @@
             narration: this.narration,
             accountingVoucherType: 'Sales'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/accounting-vouchers`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `accounting-vouchers`, item, 'POST', function (data) {
             if (data) {
               this.accountingVoucerDetail = data
               this.show = true

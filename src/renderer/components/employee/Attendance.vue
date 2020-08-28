@@ -93,8 +93,9 @@
     import VueDaval from 'vue-daval'
     import SH from '../../backend/backend'
     import VueTimepicker from 'vue2-timepicker'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'attendance',
       components: {VueTimepicker},
       mixins: [VueDaval],
@@ -128,12 +129,12 @@
         },
         checkout: function (id) {
           this.showDiv = true
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/attendances/current/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `attendances/current/${id}`, '', 'GET', function (data) {
             this.attendance = data
           }.bind(this))
         },
         getTodayAttendance: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/attendances/current`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `attendances/current`, '', 'GET', function (data) {
             this.todayAttendance = data
           }.bind(this))
         },
@@ -151,7 +152,7 @@
               id: this.attendance.id
             }
             if (updatedData.id == null) {
-              SH.ajax.callRemote(`http://127.0.0.1:8080/api/attendances`, updatedData, 'POST', function (data) {
+              SH.ajax.callRemote(baseApiUrl + `attendances`, updatedData, 'POST', function (data) {
                 this.attendance = data
                 alert(data.title)
                 this.$router.push('/listEmployeeDetails')
@@ -164,7 +165,7 @@
                 description: this.attendance.description,
                 id: this.attendance.id
               }
-              SH.ajax.callRemote(`http://127.0.0.1:8080/api/attendances`, updatedData, 'PUT', function (data) {
+              SH.ajax.callRemote(baseApiUrl + `attendances`, updatedData, 'PUT', function (data) {
                 this.employee = data
                 this.$router.push('/listEmployeeDetails')
               }.bind(this))

@@ -29,7 +29,8 @@
     import SH from '../../../../backend/backend'
     import ItemComponent from '../item'
     import Main from './Main'
-    const DataItems = []
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+const DataItems = []
 
     export default {
       name: 'keep-state-item',
@@ -76,7 +77,7 @@
             rate: r,
             referenceNumber: rn
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
               this.types = data
               alert(this.types.item)

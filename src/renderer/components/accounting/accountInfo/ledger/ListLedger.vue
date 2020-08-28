@@ -55,7 +55,8 @@
     import EditLedger from '../../accountInfo/ledger/EditLedger'
     import AddLedger from '../../accountInfo/ledger/AddLedger'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'ListLedger',
       data () {
         return {
@@ -80,7 +81,7 @@
             {draggable: true})
         },
         deleteItem: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `ledgers/${id}`, '', 'DELETE', function (data) {
             alert('Deleted Successfully')
             this.cancel()
           }.bind(this))
@@ -95,7 +96,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `ledgers?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             if (data) {
               this.ledgers = data
             } else {

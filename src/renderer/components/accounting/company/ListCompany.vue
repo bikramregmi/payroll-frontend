@@ -47,6 +47,7 @@
 
 <script>
     import SH from '../../../backend/backend'
+    import {baseApiUrl} from '../../../backend/stringConstants'
 
     export default {
       name: 'ListCompany',
@@ -73,7 +74,7 @@
           if (status === 'select') {
             this.selectedCompany = true
           } else { this.selectedCompany = '' }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/selectedCompany?id=${id}&selectedCompany=${this.selectedCompany}`, '', 'PUT', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `companies/selectedCompany?id=${id}&selectedCompany=${this.selectedCompany}`, '', 'PUT', function (data) {
           })
           location.reload()
         },
@@ -83,7 +84,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `companies?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             this.company = data
           }.bind(this))
           this.$forceUpdate()
@@ -92,7 +93,7 @@
           this.$router.push(`/updateEmployeeInformation/${id}`)
         },
         deleteCompany: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `companies/${id}`, '', 'DELETE', function (data) {
             location.reload()
             alert('Successfully Deleted')
           })

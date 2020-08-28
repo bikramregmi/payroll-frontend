@@ -42,8 +42,9 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'EditProductGroup',
       mixins: [VueDaval],
       props: ['id'],
@@ -73,7 +74,7 @@
           this.$emit('close')
         },
         retriveProductGroups: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `product-groups/${id}`, '', 'GET', function (data) {
             if (data) {
               this.groupDetail = data
             } else {
@@ -89,7 +90,7 @@
             options: this.groupDetail.options
           }
           this.$vd.groupDetail.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `product-groups`, data, 'PUT', function (data) {
               if (data) {
                 alert('Edited Successfully')
                 this.cancel()

@@ -54,6 +54,7 @@
     import SH from '../../../../backend/backend'
     import AddUnitMeasure from './AddUnitMeasure'
     import EditUnitMeasure from './EditUnitMeasure'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 export default {
       name: 'ListUnitMeasure',
       data () {
@@ -79,7 +80,7 @@ export default {
             {draggable: true})
         },
         deleteItem: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `unit-of-measures/${id}`, '', 'DELETE', function (data) {
             alert('Deleted Successfully')
             this.cancel()
           }.bind(this))
@@ -94,7 +95,7 @@ export default {
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `unit-of-measures?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             if (data) {
               this.group = data
             } else {

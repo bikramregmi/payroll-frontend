@@ -43,7 +43,8 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'AddGroups',
       mixins: [VueDaval],
       data () {
@@ -68,7 +69,7 @@
           this.$emit('close')
         },
         retriveGroup: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/group`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `group`, '', 'GET', function (data) {
             if (data) {
               this.groupList = data
             } else {
@@ -83,7 +84,7 @@
             options: this.options
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/groups`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `groups`, data, 'POST', function (data) {
               if (data) {
                 alert('Added Successfully')
                 this.cancel()

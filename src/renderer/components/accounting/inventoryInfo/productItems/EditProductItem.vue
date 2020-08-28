@@ -78,8 +78,9 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'EditProductItem',
       mixins: [VueDaval],
       props: ['id'],
@@ -115,7 +116,7 @@
           this.$emit('close')
         },
         retriveProductGroups: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-items/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `product-items/${id}`, '', 'GET', function (data) {
             if (data) {
               this.productItemDetail = data
             } else {
@@ -124,7 +125,7 @@
           }.bind(this))
         },
         retriveProductGroup: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `product-groups`, '', 'GET', function (data) {
             if (data) {
               this.productItemList = data
             } else {
@@ -143,7 +144,7 @@
             value: this.productItemDetail.value
           }
           this.$vd.productItemDetail.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-items`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `product-items`, data, 'PUT', function (data) {
               if (data) {
                 alert('Edited Successfully')
                 this.cancel()

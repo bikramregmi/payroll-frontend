@@ -34,6 +34,7 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
     export default {
       name: 'EditGroup',
@@ -65,7 +66,7 @@
           this.$emit('close')
         },
         retriveGroups: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/group/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `group/${id}`, '', 'GET', function (data) {
             if (data) {
               this.groupDetail = data
             } else {
@@ -74,7 +75,7 @@
           }.bind(this))
         },
         retriveGroup: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/group`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `group`, '', 'GET', function (data) {
             if (data) {
               this.groupList = data
             } else {
@@ -90,7 +91,7 @@
             options: this.groupDetail.options
           }
           this.$vd.groupDetail.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/group`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `group`, data, 'PUT', function (data) {
               if (data) {
                 alert('Edited Successfully')
                 this.cancel()

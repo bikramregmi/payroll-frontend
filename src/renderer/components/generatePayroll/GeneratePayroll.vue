@@ -58,8 +58,9 @@
 
 <script>
     import SH from '../../backend/backend'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'GeneratePayroll',
       data () {
         return {
@@ -123,7 +124,7 @@
             salaryMonth: mon
           }
 
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/payroll-generates`, data, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `payroll-generates`, data, 'POST', function (data) {
             this.resp = data
           }.bind(this))
         },
@@ -133,7 +134,7 @@
             size: 4,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/payroll-generates?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `payroll-generates?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             this.response = data
           }.bind(this))
         }

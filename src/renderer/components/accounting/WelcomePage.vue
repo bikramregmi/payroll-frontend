@@ -24,9 +24,9 @@
                                     </RouterLink>
                                 </li>
                                 <li class="list-group-item">
-                                    <RouterLink to="/dashboard" class="nav-group-item"><span
+                                    <RouterLink to="/calculator" class="nav-group-item"><span
                                             class="icon icon-tools"></span>
-                                        <img class=''>Documentation
+                                        <img class=''>Calculator
                                     </RouterLink>
                                 </li>
                             </ul>
@@ -73,8 +73,9 @@
     import ListUnitMeasures from './inventoryInfo/unitMeasures/ListUnitMeasure'
     import AccountingVoucher from '../accounting/accountingVoucher/AccountingVoucher'
     import InventoryVoucher from '../accounting/inventoryVoucher/InventoryVoucher'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'WelcomePage',
       components: {VueFileToolbarMenu, Dashboard},
       data () {
@@ -244,12 +245,12 @@
             {draggable: true})
         },
         retrieveCompany: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `companies/${id}`, '', 'GET', function (data) {
             this.checkCompany = data
           }.bind(this))
         },
         retrieveAllCompany: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `companies`, '', 'GET', function (data) {
             this.checkAllCompany = data
             for (let i = 0; i < this.checkAllCompany.length; i++) {
               if (this.checkAllCompany[i].extraField) {

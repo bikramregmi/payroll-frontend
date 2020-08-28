@@ -53,8 +53,9 @@
 
 <script>
     import SH from '../../backend/backend'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'ListEmployeeDetails',
       data () {
         return {
@@ -75,7 +76,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `employees?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             this.employee = data
           }.bind(this))
           this.$forceUpdate()
@@ -87,7 +88,7 @@
           this.$router.push(`/employeeSalary/${id}`)
         },
         deleteEmployee: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `employees/${id}`, '', 'DELETE', function (data) {
             location.reload()
             alert('Successfully Deleted')
           })

@@ -31,6 +31,8 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+
     export default {
       name: 'AddGroup',
       mixins: [VueDaval],
@@ -55,7 +57,7 @@
             description: this.description
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/group`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `group`, data, 'POST', function (data) {
               if (data) {
                 alert('Added Successfully')
                 this.cancel()

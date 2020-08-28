@@ -52,7 +52,8 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'AddUnitMeasure',
       mixins: [VueDaval],
       data () {
@@ -82,7 +83,7 @@
             decimalPlaces: this.decimalPlaces
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `unit-of-measures`, data, 'POST', function (data) {
               if (data) {
                 alert('Added Successfully')
                 this.cancel()

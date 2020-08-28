@@ -15,11 +15,13 @@ import VueTimepicker from 'vue2-timepicker'
 import VModal from 'vue-js-modal'
 import VirtualList from '../renderer/components/accounting/accountInfo/fixed-size/src/index'
 import CodeHighLight from '../renderer/components/accounting/accountInfo/fixed-size/CodeHighLight'
+import {baseApiUrl} from './backend/stringConstants'
 
 Vue.component(FormDatepickerPlugin)
 Vue.component('paginate', Paginate)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(Vuelidate)
+Vue.use(baseApiUrl)
 Vue.use(VueDaval)
 Vue.use(VueTimepicker)
 Vue.use(require('vue-shortkey'))

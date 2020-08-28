@@ -144,8 +144,9 @@
 <script>
     import SH from '../../../backend/backend'
     import VueDaval from 'vue-daval'
+    import {baseApiUrl} from '../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'AddCompany',
       mixins: [VueDaval],
       data () {
@@ -194,7 +195,7 @@
             taxRate: this.taxRate
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/companies`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `companies`, data, 'POST', function (data) {
               if (data) {
                 alert(data.message)
                 this.$router.push('/listCompany')

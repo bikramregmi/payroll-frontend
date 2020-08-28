@@ -78,7 +78,8 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'AddProductItem',
       mixins: [VueDaval],
       data () {
@@ -109,7 +110,7 @@
           this.$emit('close')
         },
         retriveProductGroup: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-groups`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `product-groups`, '', 'GET', function (data) {
             if (data) {
               this.groupsList = data
             } else {
@@ -127,7 +128,7 @@
             value: this.value
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/product-items`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `product-items`, data, 'POST', function (data) {
               if (data) {
                 alert('Added Successfully')
                 this.cancel()

@@ -61,8 +61,9 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'EditVoucherType',
       mixins: [VueDaval],
       props: ['id', 'my-modal'],
@@ -90,7 +91,7 @@
           this.$emit('close')
         },
         retriveVoucherType: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `voucher-types/${id}`, '', 'GET', function (data) {
             if (data) {
               this.voucherTypeDetail = data
             } else {
@@ -107,7 +108,7 @@
             description: this.voucherTypeDetail.description
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `voucher-types`, data, 'PUT', function (data) {
               if (data) {
                 alert(`Edit Successfully`)
                 this.$emit('close')

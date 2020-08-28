@@ -12,8 +12,9 @@
 
 <script>
     import SH from '../../backend/backend'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'Home',
       data () {
         return {
@@ -28,7 +29,7 @@
           this.$router.push('/addNewContact')
         },
         getTotalEmployee: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/employees/count`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `employees/count`, '', 'GET', function (data) {
             this.employeeCount = data
           }.bind(this))
           this.$forceUpdate()

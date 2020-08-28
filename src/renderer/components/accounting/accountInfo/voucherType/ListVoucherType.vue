@@ -54,7 +54,8 @@
     import EditVoucherType from '../../accountInfo/voucherType/EditVoucherType'
     import AddVoucherType from '../../accountInfo/voucherType/AddVoucherType'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'ListVoucherType',
       data () {
         return {
@@ -79,7 +80,7 @@
             {draggable: true})
         },
         deleteItem: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types/${id}`, '', 'DELETE', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `voucher-types/${id}`, '', 'DELETE', function (data) {
             alert('Deleted Successfully')
             this.cancel()
           }.bind(this))
@@ -94,7 +95,7 @@
             size: this.itemsPerPage,
             sort: 'desc'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `voucher-types?` + 'page=' + paginationQuery.page + '&size=' + paginationQuery.size + '&sort=' + paginationQuery.sort, '', 'GET', function (data) {
             if (data) {
               this.voucherTypes = data
             } else {

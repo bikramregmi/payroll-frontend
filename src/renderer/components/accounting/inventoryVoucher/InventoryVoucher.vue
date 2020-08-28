@@ -180,8 +180,9 @@
 
 <script>
     import SH from '../../../backend/backend'
+    import {baseApiUrl} from '../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'InventoryVoucher',
       data () {
         return {
@@ -505,7 +506,7 @@
               extraField: id
             }
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/inventory-voucher-entries`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `inventory-voucher-entries`, item, 'POST', function (data) {
             if (data) {
               this.types = data
               this.show = true
@@ -523,7 +524,7 @@
             voucherNumber: this.types.voucherNumber,
             narration: this.narration
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/inventory-vouchers`, item, 'PUT', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `inventory-vouchers`, item, 'PUT', function (data) {
             if (data) {
               this.inventoryVoucerDetail = data
               // this.this.show = true
@@ -542,10 +543,10 @@
     .list-keep {
         width: 100%;
         height: 500px;
-        border: 2px solid;
         border-radius: 3px;
         overflow-y: auto;
-        border-color: dimgray;
+        border: 2px solid dimgray;
+    }
 
     .list-item-keep {
         display: flex;
@@ -556,12 +557,11 @@
         border-color: lightgray;
     }
 
-    }
-
     .item-inner {
         position: relative;
         display: flex;
         align-items: center;
+    }
 
     .index {
         margin-right: 1em;
@@ -573,5 +573,4 @@
         user-select: none;
     }
 
-    }
 </style>

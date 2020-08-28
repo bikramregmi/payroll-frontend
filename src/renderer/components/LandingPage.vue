@@ -32,8 +32,9 @@
 <script>
     import SH from '../backend/backend'
     import VueDaval from 'vue-daval'
+    import {baseApiUrl} from '../backend/stringConstants'
 
-    export default {
+export default {
       name: 'landing-page',
       mixins: [VueDaval],
       components: {},
@@ -61,7 +62,7 @@
             password: this.password
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/authenticate`, loginData, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `authenticate`, loginData, 'POST', function (data) {
               if (data) {
                 if (data.id_token) {
                   this.userToken = data

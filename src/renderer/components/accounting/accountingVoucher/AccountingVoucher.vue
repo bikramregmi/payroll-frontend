@@ -360,6 +360,7 @@
 
 <script>
     import SH from '../../../backend/backend'
+    import {baseApiUrl} from '../../../backend/stringConstants'
     import VueDaval from 'vue-daval'
 
     export default {
@@ -625,7 +626,7 @@
           } else if (this.showBuy === true) {
             item.voucherType = 'Buy'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
               this.types = data
               this.show = true
@@ -636,7 +637,6 @@
           }.bind(this))
         },
         onSomeChange (p, d, de, cr, a, uk, rn) {
-          alert('45678ghj')
           const item = {
             id: this.types.id,
             item: p,
@@ -657,7 +657,7 @@
           } else {
             item.voucherType = 'Journal'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/sales-voucher-types`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `sales-voucher-types`, item, 'POST', function (data) {
             if (data) {
               this.types = data
               if (data.voucherType === 'Journal') {
@@ -698,7 +698,7 @@
           } else {
             item.accountingVoucherType = 'Journal'
           }
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/accounting-vouchers`, item, 'POST', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `accounting-vouchers`, item, 'POST', function (data) {
             if (data) {
               this.accountingVoucerDetail = data
               // this.this.show = true
@@ -709,7 +709,7 @@
           }.bind(this))
         },
         retriveTypes: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/accounting-vouchers/types`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `accounting-vouchers/types`, '', 'GET', function (data) {
             if (data) {
               this.type = data
             } else {

@@ -55,7 +55,8 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'AddVoucherType',
       mixins: [VueDaval],
       data () {
@@ -85,7 +86,7 @@
             description: this.description
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/voucher-types`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `voucher-types`, data, 'POST', function (data) {
               if (data.responseStatus === 'SUCCESS') {
                 alert(data.message)
                 this.$router.push('/listEmployeeDetails')

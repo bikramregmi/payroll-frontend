@@ -52,8 +52,9 @@
 <script>
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'EditUnitMeasure',
       mixins: [VueDaval],
       props: ['id'],
@@ -85,7 +86,7 @@
           this.$emit('close')
         },
         retriveUnitOfMeasure: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `unit-of-measures/${id}`, '', 'GET', function (data) {
             if (data) {
               this.unitMeasureDetail = data
             } else {
@@ -102,7 +103,7 @@
             decimalPlaces: this.unitMeasureDetail.decimalPlaces
           }
           this.$vd.unitMeasureDetail.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/unit-of-measures`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `unit-of-measures`, data, 'PUT', function (data) {
               if (data) {
                 alert('Edited Successfully')
                 this.cancel()

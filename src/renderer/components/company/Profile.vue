@@ -60,8 +60,9 @@
 <script>
     import SH from '../../backend/backend'
     import VueDaval from 'vue-daval'
+    import {baseApiUrl} from '../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'Profile',
       mixins: [VueDaval],
       data () {
@@ -87,7 +88,7 @@
       },
       methods: {
         companyProfile: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/account`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `account`, '', 'GET', function (data) {
             this.currentUser = data
           }
             .bind(this))
@@ -103,7 +104,7 @@
               lastName: this.currentUser.lastName,
               email: this.currentUser.email
             }
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/account`, date, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `account`, date, 'POST', function (data) {
               alert('Company Profile Updated')
             })
           }).catch(() => {

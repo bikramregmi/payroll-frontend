@@ -69,8 +69,9 @@
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
     import Groups from '../groups/AddGroups'
+    import {baseApiUrl} from '../../../../backend/stringConstants'
 
-    export default {
+export default {
       name: 'AddLedger',
       mixins: [VueDaval],
       data () {
@@ -104,7 +105,7 @@
             {draggable: true})
         },
         retriveGroups: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/groups`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `groups`, '', 'GET', function (data) {
             if (data) {
               this.groupsList = data
             } else {
@@ -121,7 +122,7 @@
             extraField4: this.groups
           }
           this.$vd.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers`, data, 'POST', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `ledgers`, data, 'POST', function (data) {
               if (data) {
                 alert('Created Successfully')
                 this.cancel()

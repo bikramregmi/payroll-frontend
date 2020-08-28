@@ -69,7 +69,8 @@
     import VueDaval from 'vue-daval'
     import SH from '../../../../backend/backend'
     import Groups from '../groups/AddGroups'
-    export default {
+    import {baseApiUrl} from '../../../../backend/stringConstants'
+export default {
       name: 'EditLedger',
       mixins: [VueDaval],
       props: ['id'],
@@ -111,7 +112,7 @@
             {draggable: true})
         },
         retriveGroups: function () {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/groups`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `groups`, '', 'GET', function (data) {
             if (data) {
               this.groupsList = data
             } else {
@@ -120,7 +121,7 @@
           }.bind(this))
         },
         retriveLedger: function (id) {
-          SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers/${id}`, '', 'GET', function (data) {
+          SH.ajax.callRemote(baseApiUrl + `ledgers/${id}`, '', 'GET', function (data) {
             if (data) {
               this.ledgerDetail = data
             } else {
@@ -138,7 +139,7 @@
             extraField4: this.ledgerDetail.extraField4
           }
           this.$vd.ledgerDetail.$validate().then(() => {
-            SH.ajax.callRemote(`http://127.0.0.1:8080/api/ledgers`, data, 'PUT', function (data) {
+            SH.ajax.callRemote(baseApiUrl + `ledgers`, data, 'PUT', function (data) {
               if (data) {
                 alert('Edited Successfully')
                 this.cancel()
